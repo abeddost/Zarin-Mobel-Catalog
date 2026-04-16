@@ -22,6 +22,10 @@ function img(folder: string, files: string[]): string[] {
   );
 }
 
+function dim(file: string): string {
+  return `/sofas%20dimensions/${encodeURIComponent(file)}`;
+}
+
 export const sofas: Sofa[] = [
   {
     id: "almira-antrasit",
@@ -35,7 +39,7 @@ export const sofas: Sofa[] = [
       "472A2549.jpg","472A2551.jpg","472A2552.jpg","472A2553.jpg","472A2554.jpg",
       "472A2555.jpg","472A2556.jpg","472A2557.jpg","472A2558.jpg","472A2559.jpg",
       "472A2560.jpg","472A2561.jpg","472A2562.jpg","472A2563.jpg","472A2564.jpg",
-    ]),
+    ]).concat([dim("Almira.png")]),
     coverImage: img("ALMİRA ANTRASİT", ["472A2543.jpg"])[0],
   },
   {
@@ -51,7 +55,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_123997.jpg","CASALLİNİ_123998.jpg","CASALLİNİ_123999--.jpg",
       "CASALLİNİ_124001.jpg","CASALLİNİ_124002.jpg","CASALLİNİ_124003.jpg",
       "CASALLİNİ_124004.jpg","CASALLİNİ_124005.jpg","CASALLİNİ_124006.jpg",
-    ]),
+    ]).concat([dim("Almira.png")]),
     coverImage: img("ALMİRA CREAM", ["CASALLİNİ_123989.jpg"])[0],
   },
   {
@@ -68,7 +72,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_93294.jpg","CASALLİNİ_93296.jpg","CASALLİNİ_93298.jpg",
       "CASALLİNİ_93300.jpg","CASALLİNİ_93301.jpg","CASALLİNİ_93302.jpg",
       "CASALLİNİ_93303.jpg",
-    ]),
+    ]).concat([dim("Almira.png")]),
     coverImage: img("ALMİRA KAHVE", ["CASALLİNİ_93269.jpg"])[0],
   },
   {
@@ -83,8 +87,23 @@ export const sofas: Sofa[] = [
       "casallini_143311.jpg","casallini_143312.jpg","casallini_143313.jpg",
       "casallini_143315.jpg","casallini_143316.jpg","casallini_143317.jpg",
       "casallini_143319.jpg","casallini_143320.jpg","casallini_143321.jpg",
-    ]),
+    ]).concat([dim("Almira L.png")]),
     coverImage: img("ALMİRA KÖŞE", ["casallini_143308.jpg"])[0],
+  },
+  {
+    id: "almira-ecksofa-creme",
+    name: "ALMİRA ECKSOFA CREME",
+    displayName: "Almira Ecksofa Creme",
+    series: "ALMİRA",
+    type: "corner",
+    folder: "Almira Ecksofa Creme",
+    images: img("Almira Ecksofa Creme", [
+      "CASALLINI_145489-kopya_7.webp","CASALLINI_145490-kopya_8.webp",
+      "CASALLINI_145493-kopya_1.webp","CASALLINI_145495-kopya_2.webp",
+      "CASALLINI_145496-kopya_3.webp","CASALLINI_145500-kopya_4.webp",
+      "CASALLINI_145501-kopya_5.webp",
+    ]).concat([dim("Almira L.png")]),
+    coverImage: img("Almira Ecksofa Creme", ["CASALLINI_145489-kopya_7.webp"])[0],
   },
   {
     id: "angel",
@@ -99,7 +118,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_137372.jpg","CASALLİNİ_137373.jpg","CASALLİNİ_137374.jpg",
       "CASALLİNİ_137375.jpg","CASALLİNİ_137376.jpg","CASALLİNİ_137377.jpg",
       "CASALLİNİ_137378.jpg","CASALLİNİ_137380.jpg","CASALLİNİ_137381.jpg",
-    ]),
+    ]).concat([dim("Angel.png")]),
     coverImage: img("ANGEL", ["Angel_01.jpg"])[0],
   },
   {
@@ -116,7 +135,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_143816.jpg","CASALLİNİ_143817 kopyası.jpg","CASALLİNİ_143817.jpg",
       "CASALLİNİ_143818.jpg","CASALLİNİ_143819.jpg","CASALLİNİ_143821.jpg",
       "CASALLİNİ_143822.jpg",
-    ]),
+    ]).concat([dim("Avanos.png")]),
     coverImage: img("AVANOS GRİ", ["CASALLİNİ_143804.jpg"])[0],
   },
   {
@@ -132,7 +151,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_144625.jpg","CASALLİNİ_144626.jpg","CASALLİNİ_144627.jpg",
       "CASALLİNİ_144633.jpg","CASALLİNİ_144635.jpg","CASALLİNİ_144636.jpg",
       "CASALLİNİ_144638.jpg","CASALLİNİ_144639.jpg","CASALLİNİ_144640.jpg",
-    ]),
+    ]).concat([dim("Avanos.png")]),
     coverImage: img("AVANOS KREM", ["CASALLİNİ_144615.jpg"])[0],
   },
   {
@@ -148,7 +167,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_144840.jpg","CASALLİNİ_144841.jpg","CASALLİNİ_144842.jpg",
       "CASALLİNİ_144843.jpg","CASALLİNİ_144845.jpg","CASALLİNİ_144846.jpg",
       "CASALLİNİ_144856.jpg","CASALLİNİ_144871.jpg","CASALLİNİ_144888.jpg",
-    ]),
+    ]).concat([dim("Avanos.png")]),
     coverImage: img("AVANOS SİS", ["CASALLİNİ_144819.jpg"])[0],
   },
   {
@@ -164,7 +183,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_144898.jpg","CASALLİNİ_144899.jpg","CASALLİNİ_144900.jpg",
       "CASALLİNİ_144901.jpg","CASALLİNİ_144903.jpg","CASALLİNİ_144904.jpg",
       "CASALLİNİ_144905.jpg","CASALLİNİ_144907.jpg","CASALLİNİ_144908.jpg",
-    ]),
+    ]).concat([dim("Avanos.png")]),
     coverImage: img("AVANOS SİYAH", ["CASALLİNİ_144890.jpg"])[0],
   },
   {
@@ -180,7 +199,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_149505.jpg","CASALLİNİ_149506.jpg","CASALLİNİ_149507.jpg",
       "CASALLİNİ_149508.jpg","CASALLİNİ_149509.jpg","CASALLİNİ_149510.jpg",
       "CASALLİNİ_149512.jpg","CASALLİNİ_149513.jpg","CASALLİNİ_149514.jpg",
-    ]),
+    ]).concat([dim("Bella.png")]),
     coverImage: img("BELLA", ["CASALLİNİ_149496.jpg"])[0],
   },
   {
@@ -196,8 +215,39 @@ export const sofas: Sofa[] = [
       "CASALLİNİ-_143860.jpg","CASALLİNİ-_143861.jpg","CASALLİNİ-_143862.jpg",
       "CASALLİNİ-_143863.jpg","CASALLİNİ-_143864.jpg","CASALLİNİ-_143865.jpg",
       "CASALLİNİ-_143866.jpg","CASALLİNİ-_143867.jpg",
-    ]),
+    ]).concat([dim("Belinda.png")]),
     coverImage: img("BELİNDA KOLTUK", ["CASALLİNİ-_143852.jpg"])[0],
+  },
+  {
+    id: "bonita",
+    name: "BONITA",
+    displayName: "Bonita",
+    series: "SOLO",
+    type: "sofa",
+    folder: "Bonita",
+    images: img("Bonita", [
+      "bonita-1-700x395.webp","bonita-11-700x1005.webp","bonita-12-700x984.webp",
+      "bonita-16-700x453.webp","bonita-17-700x525.webp","bonita-2-700x605.webp",
+      "bonita-3-700x933.webp","bonita-4-700x525.webp","bonita-6-700x587.webp",
+      "bonita-7-700x525.webp","bonita-8-700x645.webp",
+    ]).concat([dim("Bonita.png")]),
+    coverImage: img("Bonita", ["bonita-1-700x395.webp"])[0],
+  },
+  {
+    id: "bravo-ecksofa",
+    name: "BRAVO ECKSOFA",
+    displayName: "Bravo Ecksofa",
+    series: "SOLO",
+    type: "corner",
+    folder: "Bravo Ecksofa",
+    images: img("Bravo Ecksofa", [
+      "CASALLINI_149843-kopya_1-700x493.webp","bella-kose-1-700x631.webp",
+      "bella-kose-2-700x514.webp","bella-kose-3-700x430.webp",
+      "bella-kose-4-700x547.webp","bella-kose-5-700x523.webp",
+      "bella-kose-7-700x553.webp","bella-kose-8-700x552.webp",
+      "bella-kose-9-700x567.webp",
+    ]).concat([dim("Bravo L sofa.png")]),
+    coverImage: img("Bravo Ecksofa", ["CASALLINI_149843-kopya_1-700x493.webp"])[0],
   },
   {
     id: "dream",
@@ -211,7 +261,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_123977.jpg","CASALLİNİ_123978.jpg","CASALLİNİ_123979.jpg",
       "CASALLİNİ_123980.jpg","CASALLİNİ_123983.jpg","CASALLİNİ_123984.jpg",
       "CASALLİNİ_123986.jpg","CASALLİNİ_123987.jpg","CASALLİNİ_123988.jpg",
-    ]),
+    ]).concat([dim("Dream.png")]),
     coverImage: img("DREAM", ["CASALLİNİ_123972.jpg"])[0],
   },
   {
@@ -226,7 +276,7 @@ export const sofas: Sofa[] = [
       "IMG_7675.jpg","IMG_7677.jpg","IMG_7678.jpg","IMG_7680.jpg","IMG_7682.jpg",
       "IMG_7683-kopya.jpg","IMG_7683.jpg","IMG_7686-kopya.jpg","IMG_7686.jpg",
       "IMG_7687.jpg","IMG_7689.jpg","IMG_7692.jpg","IMG_7693.jpg",
-    ]),
+    ]).concat([dim("Lucas.png")]),
     coverImage: img("LUCAS 11", ["IMG_7665.jpg"])[0],
   },
   {
@@ -241,7 +291,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_133240.jpg","CASALLİNİ_133244.jpg","CASALLİNİ_133245.jpg",
       "CASALLİNİ_133246.jpg","CASALLİNİ_133248.jpg","CASALLİNİ_133249.jpg",
       "CASALLİNİ_133251.jpg","CASALLİNİ_133252.jpg","CASALLİNİ_133254.jpg",
-    ]),
+    ]).concat([dim("Lucas.png")]),
     coverImage: img("LUCAS 22", ["CASALLİNİ_133234.jpg"])[0],
   },
   {
@@ -256,7 +306,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_123296.jpg","CASALLİNİ_123297.jpg","CASALLİNİ_123298.jpg",
       "CASALLİNİ_123300.jpg","CASALLİNİ_123302.jpg","CASALLİNİ_123304.jpg",
       "CASALLİNİ_123305.jpg",
-    ]),
+    ]).concat([dim("Lucas L.png")]),
     coverImage: img("LUCAS RELAX KÖŞE", ["CASALLİNİ_123292.jpg"])[0],
   },
   {
@@ -272,7 +322,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_133222.jpg","CASALLİNİ_133223.jpg","CASALLİNİ_133227.jpg",
       "CASALLİNİ_133229.jpg","CASALLİNİ_133231.jpg","CASALLİNİ_133232.jpg",
       "CASALLİNİ_133233.jpg",
-    ]),
+    ]).concat([dim("Luna.png")]),
     coverImage: img("LUNA", ["CASALLİNİ_133212.jpg"])[0],
   },
   {
@@ -289,8 +339,24 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_149044.jpg","CASALLİNİ_149045.jpg","CASALLİNİ_149046.jpg",
       "CASALLİNİ_149050.jpg","CASALLİNİ_149055.jpg","CASALLİNİ_149058.jpg",
       "CASALLİNİ_149060.jpg",
-    ]),
+    ]).concat([dim("Motto.png")]),
     coverImage: img("MOTTO", ["CASALLİNİ_149022.jpg"])[0],
+  },
+  {
+    id: "pablo",
+    name: "PABLO",
+    displayName: "Pablo",
+    series: "SOLO",
+    type: "sofa",
+    folder: "Pablo",
+    images: img("Pablo", [
+      "CASALLINI_137387-Large_2-700x425.webp","CASALLINI_137394-Large_4-700x873.webp",
+      "CASALLINI_137395-Large_5-700x549.webp","CASALLINI_137397-Large_7-700x539.webp",
+      "CASALLINI_137399-Large_8-700x933.webp","CASALLINI_137400-Large_9-700x598.webp",
+      "CASALLINI_137408-Large_10-700x865.webp","Pablo_04-Large_11_11zon-700x467.webp",
+      "Pablo_05-Large_12_11zon-700x467.webp",
+    ]).concat([dim("Pablo.png")]),
+    coverImage: img("Pablo", ["CASALLINI_137387-Large_2-700x425.webp"])[0],
   },
   {
     id: "pablo-kose",
@@ -305,7 +371,7 @@ export const sofas: Sofa[] = [
       "casallini_143299.jpg","casallini_143300.jpg","casallini_143301.jpg",
       "casallini_143302.jpg","casallini_143303.jpg","casallini_143304.jpg",
       "casallini_143306.jpg","casallini_143307.jpg",
-    ]),
+    ]).concat([dim("Pablo L.png")]),
     coverImage: img("PABLO KÖŞE", ["casallini_143291.jpg"])[0],
   },
   {
@@ -322,7 +388,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_144095.jpg","CASALLİNİ_144096.jpg","CASALLİNİ_144097.jpg",
       "CASALLİNİ_144098.jpg","CASALLİNİ_144099.jpg","CASALLİNİ_144100.jpg",
       "CASALLİNİ_144101.jpg",
-    ]),
+    ]).concat([dim("Puma.png")]),
     coverImage: img("PUMA KOLTUK", ["CASALLİNİ_144083.jpg"])[0],
   },
   {
@@ -337,7 +403,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ05.jpg","CASALLİNİ06.jpg","CASALLİNİ07.jpg","CASALLİNİ08.jpg",
       "CASALLİNİ09.jpg","CASALLİNİ10.jpg","CASALLİNİ11.jpg","CASALLİNİ12.jpg",
       "CASALLİNİ13.jpg","CASALLİNİ14.jpg",
-    ]),
+    ]).concat([dim("Tetra.png")]),
     coverImage: img("TETRA", ["CASALLİNİ01.jpg"])[0],
   },
   {
@@ -354,7 +420,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_149489.jpg","CASALLİNİ_149490.jpg","CASALLİNİ_149491.jpg",
       "CASALLİNİ_149492.jpg","CASALLİNİ_149493.jpg","CASALLİNİ_149494.jpg",
       "CASALLİNİ_149495.jpg",
-    ]),
+    ]).concat([dim("Toscana.png"), dim("Toscana L Sofa.png")]),
     coverImage: img("TOSCANA", ["CASALLİNİ_149478.jpg"])[0],
   },
   {
@@ -372,7 +438,7 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_144129.jpg","CASALLİNİ_144130.jpg","CASALLİNİ_144131.jpg",
       "CASALLİNİ_144132.jpg","CASALLİNİ_144133.jpg","CASALLİNİ_144134.jpg",
       "CASALLİNİ_144136.jpg","CASALLİNİ_144137.jpg",
-    ]),
+    ]).concat([dim("Verona.png")]),
     coverImage: img("VERONA KOLTUK", ["CASALLİNİ_144103.jpg"])[0],
   },
 ];

@@ -10,6 +10,35 @@ const CONCURRENCY = 8;
 
 const SUPPORTED_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".tif", ".tiff"]);
 
+function parseFolderFilters() {
+  const filters = [];
+  const args = process.argv.slice(2);
+
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+
+    if (arg === "--folder") {
+      const value = args[i + 1];
+      if (!value) {
+        throw new Error("Missing value for --folder");
+      }
+      filters.push(value);
+      i += 1;
+      continue;
+    }
+
+    if (arg.startsWith("--folder=")) {
+      const value = arg.slice("--folder=".length);
+      if (!value) {
+        throw new Error("Missing value for --folder");
+      }
+      filters.push(value);
+    }
+  }
+
+  return filters;
+}
+
 async function walk(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const files = await Promise.all(
@@ -54,10 +83,23 @@ function formatMB(bytes) {
 }
 
 async function main() {
+  const folderFilters = parseFolderFilters();
+  const folderFilterSet = new Set(folderFilters);
   const allFiles = await walk(SRC_DIR);
-  const imageFiles = allFiles.filter((f) => SUPPORTED_EXT.has(path.extname(f).toLowerCase()));
+  const imageFiles = allFiles
+    .filter((f) => SUPPORTED_EXT.has(path.extname(f).toLowerCase()))
+    .filter((file) => {
+      if (folderFilterSet.size === 0) return true;
+      const rel = path.relative(SRC_DIR, file);
+      const topLevelFolder = rel.split(path.sep)[0];
+      return folderFilterSet.has(topLevelFolder);
+    });
 
   await ensureDir(OUT_DIR);
+
+  if (folderFilterSet.size > 0) {
+    console.log(`Folder filters: ${folderFilters.join(", ")}`);
+  }
 
   let cursor = 0;
   let completed = 0;
