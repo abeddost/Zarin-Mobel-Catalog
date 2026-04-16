@@ -26,11 +26,11 @@ function dim(file: string): string {
   return `/sofas%20dimensions/${encodeURIComponent(file)}`;
 }
 
-export const sofas: Sofa[] = [
+const sofasRaw: Sofa[] = [
   {
     id: "almira-antrasit",
     name: "ALMİRA ANTRASİT",
-    displayName: "Almira Antrasit",
+    displayName: "Almira Anthrazit",
     series: "ALMİRA",
     type: "sofa",
     folder: "ALMİRA ANTRASİT",
@@ -61,7 +61,7 @@ export const sofas: Sofa[] = [
   {
     id: "almira-kahve",
     name: "ALMİRA KAHVE",
-    displayName: "Almira Kahve",
+    displayName: "Almira Braun",
     series: "ALMİRA",
     type: "sofa",
     folder: "ALMİRA KAHVE",
@@ -78,7 +78,7 @@ export const sofas: Sofa[] = [
   {
     id: "almira-kose",
     name: "ALMİRA KÖŞE",
-    displayName: "Almira Köşe",
+    displayName: "Almira Ecksofa",
     series: "ALMİRA",
     type: "corner",
     folder: "ALMİRA KÖŞE",
@@ -119,12 +119,12 @@ export const sofas: Sofa[] = [
       "CASALLİNİ_137375.jpg","CASALLİNİ_137376.jpg","CASALLİNİ_137377.jpg",
       "CASALLİNİ_137378.jpg","CASALLİNİ_137380.jpg","CASALLİNİ_137381.jpg",
     ]).concat([dim("Angel.png")]),
-    coverImage: img("ANGEL", ["Angel_01.jpg"])[0],
+    coverImage: img("ANGEL", ["CASALLİNİ_137364.jpg"])[0],
   },
   {
     id: "avanos-gri",
     name: "AVANOS GRİ",
-    displayName: "Avanos Gri",
+    displayName: "Avanos Grau",
     series: "AVANOS",
     type: "sofa",
     folder: "AVANOS GRİ",
@@ -141,7 +141,7 @@ export const sofas: Sofa[] = [
   {
     id: "avanos-krem",
     name: "AVANOS KREM",
-    displayName: "Avanos Krem",
+    displayName: "Avanos Creme",
     series: "AVANOS",
     type: "sofa",
     folder: "AVANOS KREM",
@@ -157,7 +157,7 @@ export const sofas: Sofa[] = [
   {
     id: "avanos-sis",
     name: "AVANOS SİS",
-    displayName: "Avanos Sis",
+    displayName: "Avanos Nebel",
     series: "AVANOS",
     type: "sofa",
     folder: "AVANOS SİS",
@@ -173,7 +173,7 @@ export const sofas: Sofa[] = [
   {
     id: "avanos-siyah",
     name: "AVANOS SİYAH",
-    displayName: "Avanos Siyah",
+    displayName: "Avanos Schwarz",
     series: "AVANOS",
     type: "sofa",
     folder: "AVANOS SİYAH",
@@ -205,7 +205,7 @@ export const sofas: Sofa[] = [
   {
     id: "belinda-koltuk",
     name: "BELİNDA KOLTUK",
-    displayName: "Belinda Koltuk",
+    displayName: "Belinda Sessel",
     series: "SOLO",
     type: "armchair",
     folder: "BELİNDA KOLTUK",
@@ -231,7 +231,7 @@ export const sofas: Sofa[] = [
       "bonita-3-700x933.webp","bonita-4-700x525.webp","bonita-6-700x587.webp",
       "bonita-7-700x525.webp","bonita-8-700x645.webp",
     ]).concat([dim("Bonita.png")]),
-    coverImage: img("Bonita", ["bonita-1-700x395.webp"])[0],
+    coverImage: img("Bonita", ["bonita-16-700x453.webp"])[0],
   },
   {
     id: "bravo-ecksofa",
@@ -297,7 +297,7 @@ export const sofas: Sofa[] = [
   {
     id: "lucas-relax-kose",
     name: "LUCAS RELAX KÖŞE",
-    displayName: "Lucas Relax Köşe",
+    displayName: "Lucas Relax Ecksofa",
     series: "LUCAS",
     type: "corner",
     folder: "LUCAS RELAX KÖŞE",
@@ -361,7 +361,7 @@ export const sofas: Sofa[] = [
   {
     id: "pablo-kose",
     name: "PABLO KÖŞE",
-    displayName: "Pablo Köşe",
+    displayName: "Pablo Ecksofa",
     series: "SOLO",
     type: "corner",
     folder: "PABLO KÖŞE",
@@ -377,7 +377,7 @@ export const sofas: Sofa[] = [
   {
     id: "puma-koltuk",
     name: "PUMA KOLTUK",
-    displayName: "Puma Koltuk",
+    displayName: "Puma Sessel",
     series: "SOLO",
     type: "armchair",
     folder: "PUMA KOLTUK",
@@ -426,7 +426,7 @@ export const sofas: Sofa[] = [
   {
     id: "verona-koltuk",
     name: "VERONA KOLTUK",
-    displayName: "Verona Koltuk",
+    displayName: "Verona Sessel",
     series: "SOLO",
     type: "armchair",
     folder: "VERONA KOLTUK",
@@ -441,6 +441,27 @@ export const sofas: Sofa[] = [
     ]).concat([dim("Verona.png")]),
     coverImage: img("VERONA KOLTUK", ["CASALLİNİ_144103.jpg"])[0],
   },
+];
+
+const TOP_PRIORITY_ORDER = [
+  "toscana",
+  "pablo",
+  "verona-koltuk",
+  "avanos-gri",
+  "avanos-krem",
+  "avanos-sis",
+  "avanos-siyah",
+  "tetra",
+  "puma-koltuk",
+] as const;
+
+const TOP_PRIORITY_ID_SET = new Set<string>(TOP_PRIORITY_ORDER as readonly string[]);
+
+export const sofas: Sofa[] = [
+  ...TOP_PRIORITY_ORDER
+    .map((id) => sofasRaw.find((sofa) => sofa.id === id))
+    .filter((sofa): sofa is Sofa => Boolean(sofa)),
+  ...sofasRaw.filter((sofa) => !TOP_PRIORITY_ID_SET.has(sofa.id)),
 ];
 
 export const SERIES_FILTERS = ["ALL", "ALMİRA", "AVANOS", "LUCAS", "SOLO"] as const;
