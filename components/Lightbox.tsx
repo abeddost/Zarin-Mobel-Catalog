@@ -1,0 +1,194 @@
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { Sofa } from "@/data/sofas";
+
+interface LightboxProps {
+  sofa: Sofa | null;
+  onClose: () => void;
+}
+
+const TYPE_BADGE: Record<string, string> = {
+  sofa: "Sofa",
+  corner: "Ecksofa",
+  armchair: "Sessel",
+};
+
+export default function Lightbox({ sofa, onClose }: LightboxProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const images = sofa?.images ?? [];
+
+  const goNext = useCallback(() => {
+    if (!sofa) return;
+    setDirection(1);
+    setCurrentIndex((i) => (i + 1) % images.length);
+  }, [sofa, images.length]);
+
+  const goPrev = useCallback(() => {
+    if (!sofa) return;
+    setDirection(-1);
+    setCurrentIndex((i) => (i - 1 + images.length) % images.length);
+  }, [sofa, images.length]);
+
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (!sofa) return;
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [sofa, goNext, goPrev, onClose]);
+
+  const variants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? "60%" : "-60%",
+      opacity: 0,
+      scale: 0.96,
+    }),
+    center: { x: 0, opacity: 1, scale: 1 },
+    exit: (dir: number) => ({
+      x: dir > 0 ? "-60%" : "60%",
+      opacity: 0,
+      scale: 0.96,
+    }),
+  };
+
+  return (
+    <AnimatePresence>
+      {sofa && (
+        <motion.div
+          key={sofa.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center"
+          onClick={onClose}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" />
+
+          {/* Modal content */}
+          <motion.div
+            initial={{ scale: 0.94, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.94, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-10 w-full max-w-6xl mx-4 flex flex-col lg:flex-row gap-0 bg-[#0d0b08] border border-white/8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Main image area */}
+            <div className="relative flex-1 aspect-[4/3] overflow-hidden bg-[#080604]">
+              <AnimatePresence custom={direction} mode="wait">
+                <motion.div
+                  key={`${sofa.id}-${currentIndex}`}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={images[currentIndex]}
+                    alt={`${sofa.displayName} - ${currentIndex + 1}`}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 1024px) 100vw, 70vw"
+                    quality={68}
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Prev / Next arrows */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={goPrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                  >
+                    ←
+                  </button>
+                  <button
+                    onClick={goNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                  >
+                    →
+                  </button>
+                </>
+              )}
+
+              {/* Image counter */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-1.5">
+                <span className="text-white/50 text-xs tracking-[0.25em]">
+                  {currentIndex + 1} / {images.length}
+                </span>
+              </div>
+            </div>
+
+            {/* Sidebar info + thumbnails */}
+            <div className="w-full lg:w-72 flex flex-col border-t lg:border-t-0 lg:border-l border-white/8">
+              {/* Header */}
+              <div className="p-6 border-b border-white/8">
+                <p className="text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-2">
+                  {sofa.series !== "SOLO" ? sofa.series : TYPE_BADGE[sofa.type]}
+                </p>
+                <h2 className="text-white font-light tracking-[0.2em] text-lg uppercase">
+                  {sofa.displayName}
+                </h2>
+                <p className="text-white/30 text-xs tracking-wide mt-1">
+                  {images.length} Fotos
+                </p>
+              </div>
+
+              {/* Thumbnails */}
+              <div className="flex-1 overflow-y-auto p-3 grid grid-cols-4 lg:grid-cols-3 gap-2 max-h-[280px] lg:max-h-none">
+                {images.map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setDirection(i > currentIndex ? 1 : -1);
+                      setCurrentIndex(i);
+                    }}
+                    className={`relative aspect-square overflow-hidden transition-all duration-200 ${
+                      i === currentIndex
+                        ? "ring-2 ring-[#c9a96e] ring-offset-1 ring-offset-[#0d0b08]"
+                        : "opacity-50 hover:opacity-80"
+                    }`}
+                  >
+                    <Image
+                      src={src}
+                      alt={`thumb-${i}`}
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                      quality={52}
+                    />
+                  </button>
+                ))}
+              </div>
+
+              {/* Close button */}
+              <div className="p-4 border-t border-white/8">
+                <button
+                  onClick={onClose}
+                  className="w-full py-2.5 border border-white/15 text-white/50 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
+                >
+                  Schließen
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
