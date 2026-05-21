@@ -37,7 +37,7 @@ export default function FilterBar({
 }: FilterBarProps) {
   return (
     <div className="sticky top-[64px] z-40 bg-[#0a0806]/90 backdrop-blur-md border-b border-white/5 px-6 py-4">
-      <div className="max-w-7xl mx-auto flex flex-col gap-4">
+      <div className="max-w-7xl mx-auto flex flex-col gap-3">
 
         {/* Search */}
         <div className="relative">
@@ -51,35 +51,39 @@ export default function FilterBar({
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">⌕</span>
         </div>
 
-        {/* Series filters */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-white/30 text-xs tracking-[0.2em] uppercase mr-2">Serie:</span>
-          {SERIES_FILTERS.map((s) => (
-            <FilterChip
-              key={s}
-              label={SERIES_LABELS[s] ?? s}
-              active={activeSeries === s}
-              onClick={() => onSeriesChange(s)}
-            />
-          ))}
+        {/* Series filters — horizontal scroll on mobile */}
+        <div className="overflow-x-auto scrollbar-hide scroll-touch -mx-6 px-6">
+          <div className="flex flex-nowrap items-center gap-2 pb-1">
+            <span className="text-white/30 text-xs tracking-[0.2em] uppercase mr-1 shrink-0">Serie:</span>
+            {SERIES_FILTERS.map((s) => (
+              <FilterChip
+                key={s}
+                label={SERIES_LABELS[s] ?? s}
+                active={activeSeries === s}
+                onClick={() => onSeriesChange(s)}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Type filters */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-white/30 text-xs tracking-[0.2em] uppercase mr-2">Typ:</span>
-          <FilterChip
-            label={TYPE_LABELS["all"]}
-            active={activeType === "all"}
-            onClick={() => onTypeChange("all")}
-          />
-          {TYPE_FILTERS.map((t) => (
+        {/* Type filters — horizontal scroll on mobile */}
+        <div className="overflow-x-auto scrollbar-hide scroll-touch -mx-6 px-6">
+          <div className="flex flex-nowrap items-center gap-2 pb-1">
+            <span className="text-white/30 text-xs tracking-[0.2em] uppercase mr-1 shrink-0">Typ:</span>
             <FilterChip
-              key={t}
-              label={TYPE_LABELS[t]}
-              active={activeType === t}
-              onClick={() => onTypeChange(t)}
+              label={TYPE_LABELS["all"]}
+              active={activeType === "all"}
+              onClick={() => onTypeChange("all")}
             />
-          ))}
+            {TYPE_FILTERS.map((t) => (
+              <FilterChip
+                key={t}
+                label={TYPE_LABELS[t]}
+                active={activeType === t}
+                onClick={() => onTypeChange(t)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -99,7 +103,7 @@ function FilterChip({
     <motion.button
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
-      className="relative px-4 py-1.5 text-xs tracking-[0.15em] uppercase transition-colors duration-300 overflow-hidden"
+      className="relative shrink-0 px-4 min-h-[44px] text-xs tracking-[0.15em] uppercase transition-colors duration-300 overflow-hidden whitespace-nowrap"
       style={{
         color: active ? "#0a0806" : "rgba(255,255,255,0.5)",
         border: `1px solid ${active ? "#c9a96e" : "rgba(255,255,255,0.12)"}`,

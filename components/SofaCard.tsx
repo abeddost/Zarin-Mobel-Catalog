@@ -55,7 +55,7 @@ export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
       }}
       layout
       style={{ perspective: 1000 }}
-      className="cursor-pointer"
+      className="cursor-pointer active:opacity-80 transition-opacity"
       onClick={onClick}
     >
       <motion.div
@@ -80,14 +80,14 @@ export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
             src={sofa.coverImage}
             alt={sofa.displayName}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 active:scale-105 md:group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             quality={62}
           />
 
-          {/* Glare effect */}
+          {/* Glare effect — desktop hover only */}
           <motion.div
-            className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"
             style={{
               background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.08) 0%, transparent 60%)`,
             }}
@@ -113,7 +113,7 @@ export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
           )}
         </div>
 
-        {/* Card footer */}
+        {/* Card footer — always visible */}
         <div className="p-4 flex items-end justify-between">
           <div>
             <p className="text-white/40 text-[10px] tracking-[0.25em] uppercase mb-1">
@@ -123,21 +123,22 @@ export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
               {sofa.displayName}
             </h3>
           </div>
+          {/* Plus icon — always visible, rotates on desktop hover */}
           <motion.div
-            className="w-8 h-8 border border-white/20 flex items-center justify-center group-hover:border-[#c9a96e]/60 transition-colors duration-300"
+            className="w-8 h-8 border border-white/30 flex items-center justify-center group-hover:border-[#c9a96e]/60 transition-colors duration-300 shrink-0"
             animate={{ rotate: isHovered ? 45 : 0 }}
             transition={{ duration: 0.3 }}
           >
-            <span className="text-white/40 group-hover:text-[#c9a96e] text-sm transition-colors duration-300">
+            <span className="text-white/60 group-hover:text-[#c9a96e] text-sm transition-colors duration-300">
               +
             </span>
           </motion.div>
         </div>
 
-        {/* Bottom gold line on hover */}
+        {/* Bottom gold line — thin always-on base, full width on hover */}
         <motion.div
           className="absolute bottom-0 left-0 h-[2px] bg-[#c9a96e]"
-          animate={{ width: isHovered ? "100%" : "0%" }}
+          animate={{ width: isHovered ? "100%" : "20%" }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
       </motion.div>

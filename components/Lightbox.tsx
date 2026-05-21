@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import { Sofa } from "@/data/sofas";
 
 interface LightboxProps {
@@ -19,6 +20,7 @@ const TYPE_BADGE: Record<string, string> = {
 export default function Lightbox({ sofa, onClose }: LightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
 
   const images = sofa?.images ?? [];
 
@@ -45,6 +47,16 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [sofa, goNext, goPrev, onClose]);
 
+  // Reset index and swipe hint when a new sofa opens
+  useEffect(() => {
+    if (sofa) {
+      setCurrentIndex(0);
+      setShowSwipeHint(true);
+      const t = setTimeout(() => setShowSwipeHint(false), 2000);
+      return () => clearTimeout(t);
+    }
+  }, [sofa?.id]);
+
   const variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? "60%" : "-60%",
@@ -70,9 +82,23 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
           transition={{ duration: 0.35 }}
           className="fixed inset-0 z-[100] flex items-center justify-center"
           onClick={onClose}
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" />
+
+          {/* Floating close button — always accessible on mobile */}
+          <button
+            onClick={onClose}
+            className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 transition-all duration-300 backdrop-blur-sm"
+            style={{
+              top: "max(1rem, env(safe-area-inset-top))",
+              right: "1rem",
+            }}
+            aria-label="Schließen"
+          >
+            <X size={18} />
+          </button>
 
           {/* Modal content */}
           <motion.div
@@ -81,10 +107,23 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
             exit={{ scale: 0.94, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-10 w-full max-w-6xl mx-4 flex flex-col lg:flex-row gap-0 bg-[#0d0b08] border border-white/8"
+            style={{ paddingTop: "env(safe-area-inset-top)" }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Main image area */}
+            {/* Main image area with swipe */}
             <div className="relative flex-1 aspect-[4/3] overflow-hidden bg-[#080604]">
+              {/* Swipe gesture layer */}
+              <motion.div
+                className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing"
+                drag={images.length > 1 ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -60) goNext();
+                  else if (info.offset.x > 60) goPrev();
+                }}
+              />
+
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div
                   key={`${sofa.id}-${currentIndex}`}
@@ -113,13 +152,13 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
                 <>
                   <button
                     onClick={goPrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
                     ←
                   </button>
                   <button
                     onClick={goNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
                     →
                   </button>
@@ -127,11 +166,28 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
               )}
 
               {/* Image counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-1.5">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-1.5">
                 <span className="text-white/50 text-xs tracking-[0.25em]">
                   {currentIndex + 1} / {images.length}
                 </span>
               </div>
+
+              {/* Swipe hint — mobile only, fades after 2s */}
+              {images.length > 1 && (
+                <AnimatePresence>
+                  {showSwipeHint && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute top-4 left-1/2 -translate-x-1/2 z-20 md:hidden bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-2 pointer-events-none"
+                    >
+                      <span className="text-white/50 text-[10px] tracking-[0.3em]">← wischen →</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </div>
 
             {/* Sidebar info + thumbnails */}
@@ -150,7 +206,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
               </div>
 
               {/* Thumbnails */}
-              <div className="flex-1 overflow-y-auto p-3 grid grid-cols-4 lg:grid-cols-3 gap-2 max-h-[280px] lg:max-h-none">
+              <div className="flex-1 overflow-y-auto scroll-touch p-3 grid grid-cols-4 lg:grid-cols-3 gap-2 max-h-[220px] lg:max-h-none">
                 {images.map((src, i) => (
                   <button
                     key={i}
@@ -177,10 +233,10 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
               </div>
 
               {/* Close button */}
-              <div className="p-4 border-t border-white/8">
+              <div className="p-4 border-t border-white/8" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
                 <button
                   onClick={onClose}
-                  className="w-full py-2.5 border border-white/15 text-white/50 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
+                  className="w-full py-3 border border-white/15 text-white/50 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
                 >
                   Schließen
                 </button>
