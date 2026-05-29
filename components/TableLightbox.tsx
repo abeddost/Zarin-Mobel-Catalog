@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Table } from "@/data/tables";
 
 interface TableLightboxProps {
@@ -39,6 +40,10 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [table, goNext, goPrev, onClose]);
 
+  useEffect(() => {
+    if (table) setCurrentIndex(0);
+  }, [table?.id]);
+
   const variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? "60%" : "-60%",
@@ -68,6 +73,16 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" />
 
+          {/* Floating close button */}
+          <button
+            onClick={onClose}
+            className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 transition-all duration-300 backdrop-blur-sm"
+            style={{ top: "max(1rem, env(safe-area-inset-top))", right: "1rem" }}
+            aria-label="Schließen"
+          >
+            <X size={18} />
+          </button>
+
           {/* Modal content */}
           <motion.div
             initial={{ scale: 0.94, opacity: 0 }}
@@ -79,6 +94,18 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
           >
             {/* Main image area */}
             <div className="relative flex-1 aspect-[4/3] overflow-hidden bg-[#080604]">
+              {/* Swipe gesture layer */}
+              <motion.div
+                className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing"
+                drag={images.length > 1 ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -60) goNext();
+                  else if (info.offset.x > 60) goPrev();
+                }}
+              />
+
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div
                   key={`${table.id}-${currentIndex}`}
@@ -105,18 +132,26 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
               {/* Prev / Next arrows */}
               {images.length > 1 && (
                 <>
-                  <button
+                  <motion.button
                     onClick={goPrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    aria-label="Vorheriges Bild"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.88 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
-                    ←
-                  </button>
-                  <button
+                    <ChevronLeft size={22} />
+                  </motion.button>
+                  <motion.button
                     onClick={goNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    aria-label="Nächstes Bild"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.88 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
-                    →
-                  </button>
+                    <ChevronRight size={22} />
+                  </motion.button>
                 </>
               )}
 

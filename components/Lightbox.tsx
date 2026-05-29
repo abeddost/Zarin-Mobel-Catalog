@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Sofa } from "@/data/sofas";
 
 interface LightboxProps {
@@ -150,18 +150,26 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
               {/* Prev / Next arrows */}
               {images.length > 1 && (
                 <>
-                  <button
+                  <motion.button
                     onClick={goPrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    aria-label="Vorheriges Bild"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.88 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
-                    ←
-                  </button>
-                  <button
+                    <ChevronLeft size={22} />
+                  </motion.button>
+                  <motion.button
                     onClick={goNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    aria-label="Nächstes Bild"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.88 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
-                    →
-                  </button>
+                    <ChevronRight size={22} />
+                  </motion.button>
                 </>
               )}
 

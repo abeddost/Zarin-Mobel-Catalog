@@ -1,4 +1,4 @@
-export type TableSeries = "FARELLA" | "SOLO" | "GUCCI";
+export type TableSeries = "FARELLA" | "SOLO" | "GUCCI" | "CHAIRS";
 
 export interface Table {
   id: string;
@@ -36,7 +36,7 @@ export const PRODUCT_TYPE_ORDER: ProductType[] = [
 export function getProductType(imgSrc: string): ProductType {
   const name = decodeURIComponent(imgSrc.split('/').pop() ?? '').toLowerCase();
   if (name.includes('dining') || name.includes('tabke')) return 'DINING_TABLE';
-  if (name.includes('chair'))  return 'CHAIR';
+  if (name.includes('chair') || imgSrc.includes('/chairs/')) return 'CHAIR';
   if (name.includes('coffee')) return 'COFFEE_TABLE';
   if (name.includes('tv'))     return 'TV_TABLE';
   return 'DINING_TABLE';
@@ -85,10 +85,6 @@ export const tables: Table[] = [
       "Farella Dining Table-8882.jpg",
       "Farella Dining Table-8883.jpg",
       "Farella Dining Table-8884.jpg",
-      "Farella Chair-8886.jpg",
-      "Farella Chair-8887.jpg",
-      "Farella Chair-8888.jpg",
-      "Farella Chair-8889.jpg",
       "Farella Tv Table-8859.jpg",
       "Farella Tv Table-8860.jpg",
       "Farella Coffee table.jpg",
@@ -107,14 +103,6 @@ export const tables: Table[] = [
       "Solo Dining Table_002891-2 kopya.jpg",
       "Solo Dining Table_002893 kopya.jpg",
       "Solo Dining Table_002893-2 kopya.jpg",
-      "Solo Chair_002894 kopya.jpg",
-      "Solo Chair_002895 kopya.jpg",
-      "Solo Chair_002896 kopya.jpg",
-      "Solo Chair_002897 kopya.jpg",
-      "Solo Chair_002898 kopya.jpg",
-      "Solo Chair_002899 kopya.jpg",
-      "Solo Chair_002900 kopya.jpg",
-      "Solo Chair_002901 kopya.jpg",
       "Solo TV Table_002934-2 kopya.jpg",
       "Solo TV Table_002934-3 kopya.jpg",
       "Solo Coffee Table_002907 kopya.jpg",
@@ -133,13 +121,6 @@ export const tables: Table[] = [
       "Solo Dining Table-12053.jpg",
       "Solo Dining Table-12062.jpg",
       "Solo Dining Tabke-12064.jpg",
-      "Solo Chair-12065.jpg",
-      "Solo Chair-12066.jpg",
-      "Solo Chair-12067.jpg",
-      "Solo Chair-12068.jpg",
-      "Solo Chair-12069.jpg",
-      "Solo Chair-12070.jpg",
-      "Solo Chair-12072.jpg",
       "Solo Coffee Table-12073.jpg",
       "Solo Coffee Table-12075.jpg",
       "Solo TV table.jpg",
@@ -157,7 +138,6 @@ export const tables: Table[] = [
       "Gucci dining table14-0453 copy.jpg",
       "Gucci dining table14-0456 copy.jpg",
       "Gucci dining table14-0468 copy.jpg",
-      "Gucci Chair.jpg",
       "Gucci Tv table.jpg",
       "Gucci TV table 2.jpg",
       "Gucci coffee table14-0476 copy.jpg",
@@ -195,5 +175,45 @@ export const tables: Table[] = [
       "gucci coffee table.jpg",
     ]),
     coverImage: img("Gucci/Gucci cream gold", ["Gucci dining table-11215 kopya.jpg"])[0],
+  },
+  {
+    id: "bien",
+    name: "BIEN",
+    displayName: "Bien",
+    series: "CHAIRS",
+    variant: "",
+    folder: "chairs",
+    images: img("chairs", ["Bien.jpg"]),
+    coverImage: img("chairs", ["Bien.jpg"])[0],
+  },
+  {
+    id: "puma-chair",
+    name: "PUMA",
+    displayName: "Puma",
+    series: "CHAIRS",
+    variant: "",
+    folder: "chairs",
+    images: img("chairs", ["Puma.jpg"]),
+    coverImage: img("chairs", ["Puma.jpg"])[0],
+  },
+  {
+    id: "ravien",
+    name: "RAVIEN",
+    displayName: "Ravien",
+    series: "CHAIRS",
+    variant: "",
+    folder: "chairs",
+    images: img("chairs", ["Ravien.jpeg"]),
+    coverImage: img("chairs", ["Ravien.jpeg"])[0],
+  },
+  {
+    id: "roma",
+    name: "ROMA",
+    displayName: "Roma",
+    series: "CHAIRS",
+    variant: "",
+    folder: "chairs",
+    images: img("chairs", ["Roma.jpg"]),
+    coverImage: img("chairs", ["Roma.jpg"])[0],
   },
 ];
