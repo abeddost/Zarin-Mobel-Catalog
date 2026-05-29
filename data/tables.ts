@@ -20,6 +20,56 @@ function img(folder: string, files: string[]): string[] {
   });
 }
 
+export type ProductType = 'DINING_TABLE' | 'CHAIR' | 'COFFEE_TABLE' | 'TV_TABLE';
+
+export const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
+  DINING_TABLE: 'ESSTISCHE',
+  CHAIR:        'STÜHLE',
+  COFFEE_TABLE: 'COUCHTISCHE',
+  TV_TABLE:     'TV-TISCHE',
+};
+
+export const PRODUCT_TYPE_ORDER: ProductType[] = [
+  'DINING_TABLE', 'CHAIR', 'COFFEE_TABLE', 'TV_TABLE',
+];
+
+export function getProductType(imgSrc: string): ProductType {
+  const name = decodeURIComponent(imgSrc.split('/').pop() ?? '').toLowerCase();
+  if (name.includes('dining') || name.includes('tabke')) return 'DINING_TABLE';
+  if (name.includes('chair'))  return 'CHAIR';
+  if (name.includes('coffee')) return 'COFFEE_TABLE';
+  if (name.includes('tv'))     return 'TV_TABLE';
+  return 'DINING_TABLE';
+}
+
+export interface TypedTable extends Table {
+  productType: ProductType;
+}
+
+export function getTablesByType(): TypedTable[] {
+  const result: TypedTable[] = [];
+  for (const table of tables) {
+    const buckets: Record<ProductType, string[]> = {
+      DINING_TABLE: [], CHAIR: [], COFFEE_TABLE: [], TV_TABLE: [],
+    };
+    for (const src of table.images) {
+      buckets[getProductType(src)].push(src);
+    }
+    for (const type of PRODUCT_TYPE_ORDER) {
+      const imgs = buckets[type];
+      if (imgs.length === 0) continue;
+      result.push({
+        ...table,
+        id:          `${table.id}-${type}`,
+        productType: type,
+        images:      imgs,
+        coverImage:  imgs[0],
+      });
+    }
+  }
+  return result;
+}
+
 export const tables: Table[] = [
   {
     id: "farella",

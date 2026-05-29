@@ -23,20 +23,20 @@ export default function Home() {
             Unsere Kollektionen
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-            <div className="flex-1 border border-[#c9a96e]/40 px-6 py-4 text-center">
-              <p className="text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-1">Aktiv</p>
-              <span className="text-white font-light tracking-[0.2em] text-sm uppercase">
+            <div className="flex-1 bg-[#c9a96e] px-6 py-4 text-center">
+              <p className="text-[#1b140d]/70 text-[10px] tracking-[0.4em] uppercase mb-1">Aktiv</p>
+              <span className="text-[#1b140d] font-semibold tracking-[0.2em] text-sm uppercase">
                 Polstermöbel
               </span>
             </div>
             <a
               href="/tables"
-              className="flex-1 border border-white/10 hover:border-[#c9a96e]/40 px-6 py-4 text-center transition-colors duration-300 group"
+              className="flex-1 bg-white/8 border border-[#c9a96e]/70 hover:bg-[#c9a96e]/10 hover:border-[#c9a96e] px-6 py-4 text-center transition-all duration-300 group"
             >
-              <p className="text-white/30 group-hover:text-[#c9a96e]/70 text-[10px] tracking-[0.4em] uppercase mb-1 transition-colors duration-300">
+              <p className="text-[#c9a96e]/60 group-hover:text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-1 transition-colors duration-300">
                 Entdecken
               </p>
-              <span className="text-white/50 group-hover:text-[#c9a96e] font-light tracking-[0.2em] text-sm uppercase transition-colors duration-300">
+              <span className="text-white font-light tracking-[0.2em] text-sm uppercase group-hover:text-[#c9a96e] transition-colors duration-300">
                 Tische & Stühle
               </span>
             </a>

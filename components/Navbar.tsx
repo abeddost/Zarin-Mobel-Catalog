@@ -70,7 +70,7 @@ export default function Navbar() {
             ))}
             <a
               href="/tables"
-              className="text-[#c9a96e]/70 hover:text-[#c9a96e] text-xs tracking-[0.2em] uppercase transition-colors duration-300 border border-[#c9a96e]/30 hover:border-[#c9a96e]/60 px-3 py-1"
+              className="text-[#c9a96e] text-xs tracking-[0.2em] uppercase transition-all duration-300 bg-[#c9a96e]/15 border border-[#c9a96e] hover:bg-[#c9a96e]/25 px-3 py-1.5"
             >
               Tische
             </a>
@@ -143,7 +143,7 @@ export default function Navbar() {
                 <a
                   href="/tables"
                   onClick={() => setDrawerOpen(false)}
-                  className="py-3 text-[#c9a96e]/70 hover:text-[#c9a96e] text-xs tracking-[0.25em] uppercase transition-colors duration-300 border-b border-white/5"
+                  className="py-3 text-[#c9a96e] text-xs tracking-[0.25em] uppercase transition-colors duration-300 border-b border-[#c9a96e]/20 font-medium"
                 >
                   Tische
                 </a>

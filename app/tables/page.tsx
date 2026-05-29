@@ -4,27 +4,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { tables, Table } from "@/data/tables";
 import Navbar from "@/components/Navbar";
-import { TablesHero } from "@/components/TablesHero";
 import TableGrid from "@/components/TableGrid";
 import TableLightbox from "@/components/TableLightbox";
 
 export default function TablesPage() {
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
 
-  function scrollToCatalogue() {
-    document.getElementById("catalogue")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
-
   return (
     <main className="min-h-screen bg-[#0a0806]">
       <Navbar />
-      <TablesHero onExploreCatalogue={scrollToCatalogue} />
 
       {/* Collection navigation */}
-      <section className="relative py-10 px-6">
+      <section className="relative pt-28 pb-6 px-6">
         <div className="max-w-[1500px] mx-auto">
           <p className="text-center text-[#c9a96e] text-[10px] tracking-[0.5em] uppercase mb-8">
             Unsere Kollektionen
@@ -32,18 +23,18 @@ export default function TablesPage() {
           <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
             <a
               href="/"
-              className="flex-1 border border-white/10 hover:border-[#c9a96e]/40 px-6 py-4 text-center transition-colors duration-300 group"
+              className="flex-1 bg-white/8 border border-[#c9a96e]/70 hover:bg-[#c9a96e]/10 hover:border-[#c9a96e] px-6 py-4 text-center transition-all duration-300 group"
             >
-              <p className="text-white/30 group-hover:text-[#c9a96e]/70 text-[10px] tracking-[0.4em] uppercase mb-1 transition-colors duration-300">
+              <p className="text-[#c9a96e]/60 group-hover:text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-1 transition-colors duration-300">
                 Entdecken
               </p>
-              <span className="text-white/50 group-hover:text-[#c9a96e] font-light tracking-[0.2em] text-sm uppercase transition-colors duration-300">
+              <span className="text-white font-light tracking-[0.2em] text-sm uppercase group-hover:text-[#c9a96e] transition-colors duration-300">
                 Polstermöbel
               </span>
             </a>
-            <div className="flex-1 border border-[#c9a96e]/40 px-6 py-4 text-center">
-              <p className="text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-1">Aktiv</p>
-              <span className="text-white font-light tracking-[0.2em] text-sm uppercase">
+            <div className="flex-1 bg-[#c9a96e] px-6 py-4 text-center">
+              <p className="text-[#1b140d]/70 text-[10px] tracking-[0.4em] uppercase mb-1">Aktiv</p>
+              <span className="text-[#1b140d] font-semibold tracking-[0.2em] text-sm uppercase">
                 Tische & Stühle
               </span>
             </div>
