@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { tables, Table } from "@/data/tables";
 import Navbar from "@/components/Navbar";
 import TableGrid from "@/components/TableGrid";
@@ -92,6 +93,19 @@ export default function TablesPage() {
 
       {/* Lightbox */}
       <TableLightbox table={selectedTable} onClose={() => setSelectedTable(null)} />
+
+      {/* Floating navigation button — Möbel Catalogue */}
+      <motion.a
+        href="/"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.93 }}
+        transition={{ type: "spring", stiffness: 400, damping: 20 }}
+        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(37,99,235,0.45)] text-xs font-semibold tracking-[0.15em] uppercase transition-colors"
+        style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+      >
+        <ArrowLeft size={14} />
+        Möbel Catalogue
+      </motion.a>
     </main>
   );
 }
