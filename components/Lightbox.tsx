@@ -88,7 +88,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
           {/* Floating close button — always accessible on mobile */}
           <button
             onClick={onClose}
-            className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-white/60 hover:text-gold hover:border-gold/40 transition-all duration-300 backdrop-blur-sm"
+            className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-red-500 hover:text-red-400 hover:border-red-500/50 transition-all duration-300 backdrop-blur-sm"
             style={{
               top: "max(1rem, env(safe-area-inset-top))",
               right: "1rem",
@@ -258,15 +258,6 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
                 ))}
               </div>
 
-              {/* Close button — desktop only; mobile relies on the floating ✕ */}
-              <div className="hidden lg:block p-4 border-t border-white/8" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
-                <button
-                  onClick={onClose}
-                  className="w-full py-3 bg-white/5 border border-white/15 text-white/50 hover:text-gold hover:bg-gold/10 hover:border-gold/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
-                >
-                  Schließen
-                </button>
-              </div>
             </div>
           </motion.div>
         </motion.div>
