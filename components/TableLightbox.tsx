@@ -14,6 +14,7 @@ interface TableLightboxProps {
 export default function TableLightbox({ table, onClose }: TableLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
 
   const images = table?.images ?? [];
 
@@ -40,21 +41,25 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [table, goNext, goPrev, onClose]);
 
+  // Reset index and swipe hint when a new table opens
   useEffect(() => {
-    if (table) setCurrentIndex(0);
+    if (table) {
+      setCurrentIndex(0);
+      setShowSwipeHint(true);
+      const t = setTimeout(() => setShowSwipeHint(false), 2000);
+      return () => clearTimeout(t);
+    }
   }, [table?.id]);
 
   const variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? "60%" : "-60%",
       opacity: 0,
-      scale: 0.96,
     }),
-    center: { x: 0, opacity: 1, scale: 1 },
+    center: { x: 0, opacity: 1 },
     exit: (dir: number) => ({
       x: dir > 0 ? "-60%" : "60%",
       opacity: 0,
-      scale: 0.96,
     }),
   };
 
@@ -101,10 +106,30 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.15}
                 onDragEnd={(_, info) => {
-                  if (info.offset.x < -60) goNext();
-                  else if (info.offset.x > 60) goPrev();
+                  if (info.offset.x < -45) goNext();
+                  else if (info.offset.x > 45) goPrev();
                 }}
               />
+
+              {/* Preload neighboring images so swiping feels instant */}
+              {images.length > 1 && (
+                <div className="absolute w-px h-px opacity-0 pointer-events-none overflow-hidden">
+                  <Image
+                    src={images[(currentIndex - 1 + images.length) % images.length]}
+                    alt=""
+                    width={1}
+                    height={1}
+                    quality={68}
+                  />
+                  <Image
+                    src={images[(currentIndex + 1) % images.length]}
+                    alt=""
+                    width={1}
+                    height={1}
+                    quality={68}
+                  />
+                </div>
+              )}
 
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div
@@ -114,7 +139,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute inset-0"
                 >
                   <Image
@@ -138,7 +163,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/80 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/60"
                   >
                     <ChevronLeft size={22} />
                   </motion.button>
@@ -148,7 +173,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/80 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/60"
                   >
                     <ChevronRight size={22} />
                   </motion.button>
@@ -161,6 +186,23 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                   {currentIndex + 1} / {images.length}
                 </span>
               </div>
+
+              {/* Swipe hint — mobile only, fades after 2s */}
+              {images.length > 1 && (
+                <AnimatePresence>
+                  {showSwipeHint && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute top-4 left-1/2 -translate-x-1/2 z-20 md:hidden bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-2 pointer-events-none"
+                    >
+                      <span className="text-white/50 text-[10px] tracking-[0.3em]">← wischen →</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </div>
 
             {/* Sidebar info + thumbnails */}
@@ -178,8 +220,8 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                 </p>
               </div>
 
-              {/* Thumbnails */}
-              <div className="flex-1 overflow-y-auto p-3 grid grid-cols-4 lg:grid-cols-3 gap-2 max-h-[280px] lg:max-h-none">
+              {/* Thumbnails — horizontal filmstrip on mobile, grid on desktop */}
+              <div className="flex-1 flex flex-nowrap lg:grid lg:grid-cols-3 gap-2 p-3 overflow-x-auto lg:overflow-x-visible overflow-y-hidden lg:overflow-y-auto scrollbar-hide scroll-touch">
                 {images.map((src, i) => (
                   <button
                     key={i}
@@ -187,10 +229,10 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                       setDirection(i > currentIndex ? 1 : -1);
                       setCurrentIndex(i);
                     }}
-                    className={`relative aspect-square overflow-hidden transition-all duration-200 ${
+                    className={`relative w-20 h-20 shrink-0 lg:w-auto lg:h-auto lg:shrink lg:aspect-square overflow-hidden transition-all duration-200 ${
                       i === currentIndex
                         ? "ring-2 ring-gold ring-offset-1 ring-offset-dark-2"
-                        : "opacity-50 hover:opacity-80"
+                        : "opacity-90"
                     }`}
                   >
                     <Image
@@ -205,8 +247,8 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                 ))}
               </div>
 
-              {/* Close button */}
-              <div className="p-4 border-t border-white/8">
+              {/* Close button — desktop only; mobile relies on the floating ✕ */}
+              <div className="hidden lg:block p-4 border-t border-white/8">
                 <button
                   onClick={onClose}
                   className="w-full py-3 bg-white/5 border border-white/15 text-white/50 hover:text-gold hover:bg-gold/10 hover:border-gold/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
