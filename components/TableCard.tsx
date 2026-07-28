@@ -66,7 +66,7 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
             : "0 8px 32px rgba(0,0,0,0.4)",
           transition: "box-shadow 0.4s ease",
         }}
-        className="relative overflow-hidden bg-[#111008] group"
+        className="relative overflow-hidden bg-dark-3 group"
       >
         {/* Image container */}
         <div className="relative aspect-[4/3] overflow-hidden">
@@ -98,31 +98,31 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
           </div>
 
           {/* Series badge */}
-          <div className="absolute top-3 left-3 bg-[#c9a96e]/20 backdrop-blur-sm border border-[#c9a96e]/30 px-2 py-1">
-            <span className="text-[#c9a96e] text-[10px] tracking-widest font-medium">
+          <div className="absolute top-3 left-3 bg-gold/20 backdrop-blur-sm border border-gold/30 px-2 py-1">
+            <span className="text-gold text-[10px] tracking-widest font-medium">
               {table.series}
             </span>
           </div>
         </div>
 
         {/* Card footer */}
-        <div className="p-4 flex items-end justify-between">
-          <div>
+        <div className="p-4 flex items-end justify-between gap-3">
+          <div className="min-w-0 flex-1">
             {table.variant && (
-              <p className="text-white/40 text-[10px] tracking-[0.25em] uppercase mb-1">
+              <p className="text-white/40 text-[10px] tracking-[0.25em] uppercase mb-1 truncate">
                 {table.variant}
               </p>
             )}
-            <h3 className="text-white font-light tracking-[0.15em] text-sm uppercase group-hover:text-[#c9a96e] transition-colors duration-300">
+            <h3 className="text-white font-light tracking-[0.15em] text-sm uppercase truncate group-hover:text-gold transition-colors duration-300">
               {table.displayName}
             </h3>
           </div>
           <motion.div
-            className="w-8 h-8 border border-white/20 flex items-center justify-center group-hover:border-[#c9a96e]/60 transition-colors duration-300"
+            className="w-8 h-8 border border-white/20 flex items-center justify-center group-hover:border-gold/60 transition-colors duration-300 shrink-0"
             animate={{ rotate: isHovered ? 45 : 0 }}
             transition={{ duration: 0.3 }}
           >
-            <span className="text-white/40 group-hover:text-[#c9a96e] text-sm transition-colors duration-300">
+            <span className="text-white/40 group-hover:text-gold text-sm transition-colors duration-300">
               +
             </span>
           </motion.div>
@@ -130,7 +130,7 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
 
         {/* Bottom gold line on hover */}
         <motion.div
-          className="absolute bottom-0 left-0 h-[2px] bg-[#c9a96e]"
+          className="absolute bottom-0 left-0 h-[2px] bg-gold"
           animate={{ width: isHovered ? "100%" : "0%" }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />

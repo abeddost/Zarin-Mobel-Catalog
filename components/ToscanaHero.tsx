@@ -53,7 +53,7 @@ export function ToscanaHero({ onExploreCatalogue }: ToscanaHeroProps) {
   }, []);
 
   return (
-    <section className="relative h-svh overflow-hidden border-b border-white/8 bg-[#080604] text-stone-100">
+    <section className="relative h-svh overflow-hidden border-b border-white/8 bg-dark-0 text-stone-100">
       {/* Ambient colour washes */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(197,154,97,0.10),transparent_40%),radial-gradient(circle_at_78%_25%,rgba(117,77,40,0.12),transparent_44%)]" />
 
@@ -101,10 +101,10 @@ export function ToscanaHero({ onExploreCatalogue }: ToscanaHeroProps) {
       {/* Text content */}
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[1500px] flex-col px-6 pb-12 pt-28 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-18 lg:pt-40">
         <div className="mx-auto max-w-sm text-center lg:mx-0 lg:max-w-[480px] lg:text-left">
-          <p className="mb-5 font-sans text-[0.62rem] uppercase tracking-[0.5em] text-[#c9a96e]">
+          <p className="mb-5 font-sans text-[0.62rem] uppercase tracking-[0.5em] text-gold">
             Online Katalog
           </p>
-          <h1 className="font-[Cormorant_Garamond] text-[2.75rem] leading-[0.88] tracking-[0.03em] text-stone-100 sm:text-[3.6rem] lg:text-[5.6rem]">
+          <h1 className="font-serif text-[2.75rem] leading-[0.88] tracking-[0.03em] text-stone-100 sm:text-[3.6rem] lg:text-[5.6rem]">
             Zarin<br />Möbelhaus
           </h1>
           <p className="mt-5 font-sans text-[0.82rem] leading-relaxed tracking-[0.06em] text-stone-300/65 sm:text-[0.88rem] lg:mt-6 lg:text-[0.9rem]">
@@ -115,7 +115,7 @@ export function ToscanaHero({ onExploreCatalogue }: ToscanaHeroProps) {
         <div className="mt-auto flex flex-col items-center gap-4 sm:flex-row lg:items-end lg:justify-between">
           <button
             onClick={onExploreCatalogue}
-            className="inline-flex cursor-pointer items-center justify-center border border-[#c9a96e]/75 bg-[#c9a96e] px-9 py-3.5 font-sans text-[0.8rem] uppercase tracking-[0.26em] text-[#1b140d] shadow-[0_14px_34px_rgba(0,0,0,0.46)] transition-colors hover:bg-[#ddbe87] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e1c28d]/90 sm:px-10 sm:text-[0.84rem]"
+            className="inline-flex cursor-pointer items-center justify-center border border-gold/75 bg-gold px-9 py-3.5 font-sans text-[0.8rem] uppercase tracking-[0.26em] text-on-gold shadow-[0_14px_34px_rgba(0,0,0,0.46)] transition-colors hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/90 sm:px-10 sm:text-[0.84rem]"
           >
             Kollektionen
             <ArrowDownRight className="ml-3 size-[1.1rem]" />

@@ -443,29 +443,42 @@ const sofasRaw: Sofa[] = [
   },
 ];
 
-const TOP_PRIORITY_ORDER = [
+// Multi-color-variant series (ALMİRA, AVANOS) are threaded between the other
+// couches below rather than clustered together, so the grid reads as varied.
+const CATALOG_ORDER = [
   "toscana",
+  "dream",
+  "almira-cream",
   "pablo",
-  "verona-koltuk",
-  "avanos-gri",
-  "avanos-krem",
-  "avanos-sis",
-  "avanos-siyah",
-  "tetra",
+  "bella",
+  "almira-antrasit",
   "puma-koltuk",
+  "bonita",
+  "verona-koltuk",
+  "avanos-sis",
+  "belinda-koltuk",
+  "avanos-gri",
+  "angel",
+  "bravo-ecksofa",
+  "avanos-krem",
+  "lucas-11",
+  "almira-kahve",
+  "lucas-22",
+  "tetra",
+  "lucas-relax-kose",
+  "luna",
+  "almira-kose",
+  "motto",
+  "avanos-siyah",
+  "pablo-kose",
+  "almira-ecksofa-creme",
 ] as const;
 
-const TOP_PRIORITY_ID_SET = new Set<string>(TOP_PRIORITY_ORDER as readonly string[]);
+const CATALOG_ID_SET = new Set<string>(CATALOG_ORDER as readonly string[]);
 
 export const sofas: Sofa[] = [
-  ...TOP_PRIORITY_ORDER
+  ...CATALOG_ORDER
     .map((id) => sofasRaw.find((sofa) => sofa.id === id))
     .filter((sofa): sofa is Sofa => Boolean(sofa)),
-  ...sofasRaw.filter((sofa) => !TOP_PRIORITY_ID_SET.has(sofa.id)),
+  ...sofasRaw.filter((sofa) => !CATALOG_ID_SET.has(sofa.id)),
 ];
-
-export const SERIES_FILTERS = ["ALL", "ALMİRA", "AVANOS", "LUCAS", "SOLO"] as const;
-export const TYPE_FILTERS = ["sofa", "corner", "armchair"] as const;
-
-export type SeriesFilter = (typeof SERIES_FILTERS)[number];
-export type TypeFilter = (typeof TYPE_FILTERS)[number];

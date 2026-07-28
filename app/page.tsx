@@ -2,53 +2,26 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, ArrowRight } from "lucide-react";
+import { Phone } from "lucide-react";
 import { sofas, Sofa } from "@/data/sofas";
 import Navbar from "@/components/Navbar";
 import SofaGrid from "@/components/SofaGrid";
 import Lightbox from "@/components/Lightbox";
 import Footer from "@/components/Footer";
+import CatalogSwitchButton from "@/components/CatalogSwitchButton";
 
 export default function Home() {
   const [selectedSofa, setSelectedSofa] = useState<Sofa | null>(null);
 
   return (
-    <main className="min-h-screen bg-[#0a0806]">
+    <main className="min-h-screen bg-dark">
       <Navbar />
 
-      {/* Collection navigation */}
-      <section className="relative py-10 px-6">
-        <div className="max-w-[1500px] mx-auto">
-          <p className="text-center text-[#c9a96e] text-[10px] tracking-[0.5em] uppercase mb-8">
-            Unsere Kollektionen
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-            <div className="flex-1 bg-[#c9a96e] px-6 py-4 text-center">
-              <p className="text-[#1b140d]/70 text-[10px] tracking-[0.4em] uppercase mb-1">Aktiv</p>
-              <span className="text-[#1b140d] font-semibold tracking-[0.2em] text-sm uppercase">
-                Polstermöbel
-              </span>
-            </div>
-            <a
-              href="/tables"
-              className="flex-1 bg-white/8 border border-[#c9a96e]/70 hover:bg-[#c9a96e]/10 hover:border-[#c9a96e] px-6 py-4 text-center transition-all duration-300 group"
-            >
-              <p className="text-[#c9a96e]/60 group-hover:text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-1 transition-colors duration-300">
-                Entdecken
-              </p>
-              <span className="text-white font-light tracking-[0.2em] text-sm uppercase group-hover:text-[#c9a96e] transition-colors duration-300">
-                Tische & Stühle
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* Catalogue section */}
-      <section id="catalogue" className="relative">
+      <section id="catalogue" className="relative pt-28">
         {/* Section divider */}
         <div className="relative py-16 flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806] via-[#0d0b08] to-[#0a0806]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark-2 to-dark" />
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
@@ -56,16 +29,16 @@ export default function Home() {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="relative flex items-center gap-6"
           >
-            <div className="h-px w-24 bg-gradient-to-r from-transparent to-[#c9a96e]" />
+            <div className="h-px w-24 bg-gradient-to-r from-transparent to-gold" />
             <div className="text-center">
-              <p className="text-[#c9a96e] text-[10px] tracking-[0.5em] uppercase mb-2">
+              <p className="text-gold text-[10px] tracking-[0.5em] uppercase mb-2">
                 Unsere Kollektion
               </p>
               <h2 className="text-white font-extralight tracking-[0.3em] uppercase text-2xl">
                 Alle Modelle
               </h2>
             </div>
-            <div className="h-px w-24 bg-gradient-to-l from-transparent to-[#c9a96e]" />
+            <div className="h-px w-24 bg-gradient-to-l from-transparent to-gold" />
           </motion.div>
         </div>
 
@@ -78,8 +51,8 @@ export default function Home() {
         <footer className="mt-24 border-t border-white/5 py-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-6 h-6 rounded-full border border-[#c9a96e]/50 flex items-center justify-center">
-                <span className="text-[#c9a96e] text-[10px] font-bold">Z</span>
+              <div className="w-6 h-6 rounded-full border border-gold/50 flex items-center justify-center">
+                <span className="text-gold text-[10px] font-bold">Z</span>
               </div>
               <span className="text-white/30 text-xs tracking-[0.3em] uppercase">
                 Zarin Möbelhaus
@@ -98,17 +71,7 @@ export default function Home() {
       <Lightbox sofa={selectedSofa} onClose={() => setSelectedSofa(null)} />
 
       {/* Floating navigation button — Tische */}
-      <motion.a
-        href="/tables"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.93 }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-4 rounded-full shadow-[0_8px_32px_rgba(37,99,235,0.45)] text-sm font-semibold tracking-[0.15em] uppercase transition-colors"
-        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
-      >
-        Tischkatalog
-        <ArrowRight size={15} />
-      </motion.a>
+      <CatalogSwitchButton href="/tables" label="Tischkatalog" direction="right" />
 
       {/* Sticky mobile contact FABs */}
       <div
@@ -128,7 +91,7 @@ export default function Home() {
         </a>
         <a
           href="tel:+4915756345284"
-          className="flex items-center gap-2 bg-[#c9a96e] text-[#1b140d] rounded-full px-5 py-3 text-xs font-semibold tracking-[0.15em] uppercase shadow-[0_8px_32px_rgba(0,0,0,0.5)] active:opacity-80 transition-opacity"
+          className="flex items-center gap-2 bg-gold text-on-gold rounded-full px-5 py-3 text-xs font-semibold tracking-[0.15em] uppercase shadow-[0_8px_32px_rgba(0,0,0,0.5)] active:opacity-80 transition-opacity"
         >
           <Phone size={15} />
           Anrufen

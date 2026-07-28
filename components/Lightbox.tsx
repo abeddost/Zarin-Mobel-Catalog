@@ -90,7 +90,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
           {/* Floating close button — always accessible on mobile */}
           <button
             onClick={onClose}
-            className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 transition-all duration-300 backdrop-blur-sm"
+            className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-white/60 hover:text-gold hover:border-gold/40 transition-all duration-300 backdrop-blur-sm"
             style={{
               top: "max(1rem, env(safe-area-inset-top))",
               right: "1rem",
@@ -106,12 +106,12 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.94, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 w-full max-w-6xl mx-4 flex flex-col lg:flex-row gap-0 bg-[#0d0b08] border border-white/8"
+            className="relative z-10 w-full max-w-6xl mx-4 flex flex-col lg:flex-row gap-0 bg-dark-2 border border-white/8"
             style={{ paddingTop: "env(safe-area-inset-top)" }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Main image area with swipe */}
-            <div className="relative flex-1 aspect-[4/3] overflow-hidden bg-[#080604]">
+            <div className="relative flex-1 aspect-[4/3] overflow-hidden bg-dark-0">
               {/* Swipe gesture layer */}
               <motion.div
                 className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing"
@@ -156,7 +156,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
                     <ChevronLeft size={22} />
                   </motion.button>
@@ -166,7 +166,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#c9a96e] hover:border-[#c9a96e]/50 hover:bg-[#c9a96e]/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/30"
                   >
                     <ChevronRight size={22} />
                   </motion.button>
@@ -202,7 +202,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
             <div className="w-full lg:w-72 flex flex-col border-t lg:border-t-0 lg:border-l border-white/8">
               {/* Header */}
               <div className="p-6 border-b border-white/8">
-                <p className="text-[#c9a96e] text-[10px] tracking-[0.4em] uppercase mb-2">
+                <p className="text-gold text-[10px] tracking-[0.4em] uppercase mb-2">
                   {sofa.series !== "SOLO" ? sofa.series : TYPE_BADGE[sofa.type]}
                 </p>
                 <h2 className="text-white font-light tracking-[0.2em] text-lg uppercase">
@@ -224,7 +224,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
                     }}
                     className={`relative aspect-square overflow-hidden transition-all duration-200 ${
                       i === currentIndex
-                        ? "ring-2 ring-[#c9a96e] ring-offset-1 ring-offset-[#0d0b08]"
+                        ? "ring-2 ring-gold ring-offset-1 ring-offset-dark-2"
                         : "opacity-50 hover:opacity-80"
                     }`}
                   >
@@ -244,7 +244,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
               <div className="p-4 border-t border-white/8" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
                 <button
                   onClick={onClose}
-                  className="w-full py-3 border border-white/15 text-white/50 hover:text-[#c9a96e] hover:border-[#c9a96e]/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
+                  className="w-full py-3 bg-white/5 border border-white/15 text-white/50 hover:text-gold hover:bg-gold/10 hover:border-gold/40 text-xs tracking-[0.3em] uppercase transition-all duration-300"
                 >
                   Schließen
                 </button>

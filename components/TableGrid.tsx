@@ -5,7 +5,6 @@ import { Table, getTablesByType, PRODUCT_TYPE_ORDER, PRODUCT_TYPE_LABELS, TypedT
 import TableCard from "./TableCard";
 
 interface TableGridProps {
-  tables: Table[];
   onCardClick: (table: Table) => void;
 }
 
@@ -41,16 +40,16 @@ export default function TableGrid({ onCardClick }: TableGridProps) {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="flex items-center gap-6 mb-10"
             >
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#c9a96e]/30" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/30" />
               <div className="text-center">
-                <h2 className="text-[#c9a96e] font-light tracking-[0.4em] text-sm uppercase">
+                <h2 className="text-gold font-light tracking-[0.4em] text-sm uppercase">
                   {PRODUCT_TYPE_LABELS[type]}
                 </h2>
                 <p className="text-white/20 text-[10px] tracking-[0.25em] mt-1">
                   {group.length} {group.length === 1 ? "Kollektion" : "Kollektionen"}
                 </p>
               </div>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#c9a96e]/30" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/30" />
             </motion.div>
 
             {/* Cards */}
