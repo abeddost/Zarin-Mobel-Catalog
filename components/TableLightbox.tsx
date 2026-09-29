@@ -159,7 +159,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/80 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/60"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 hidden md:flex items-center justify-center text-white/80 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/60"
                   >
                     <ChevronLeft size={22} />
                   </motion.button>
@@ -169,7 +169,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 flex items-center justify-center text-white/80 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/60"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-white/20 hidden md:flex items-center justify-center text-white/80 hover:text-gold hover:border-gold/50 hover:bg-gold/10 hover:shadow-[0_0_18px_rgba(201,169,110,0.2)] transition-all duration-300 backdrop-blur-sm bg-black/60"
                   >
                     <ChevronRight size={22} />
                   </motion.button>
