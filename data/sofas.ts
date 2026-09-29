@@ -1,5 +1,5 @@
 export type SofaType = "sofa" | "corner" | "armchair";
-export type SofaSeries = "ALMİRA" | "AVANOS" | "LUCAS" | "SOLO";
+export type SofaSeries = "ALMİRA" | "AVANOS" | "DELTA" | "LUCAS" | "SOLO" | "VERSAGE";
 
 export interface Sofa {
   id: string;
@@ -441,11 +441,132 @@ const sofasRaw: Sofa[] = [
     ]).concat([dim("Verona.png")]),
     coverImage: img("VERONA KOLTUK", ["CASALLİNİ_144103.jpg"])[0],
   },
+  {
+    id: "hayra",
+    name: "HAYRA",
+    displayName: "Hayra",
+    series: "SOLO",
+    type: "sofa",
+    folder: "Hayra",
+    images: img("Hayra", [
+      "PHOTO-2026-06-10-22-13-16.jpg","PHOTO-2026-06-10-22-13-16 2.jpg",
+      "PHOTO-2026-06-10-22-13-16 3.jpg","PHOTO-2026-06-10-22-13-16 4.jpg",
+      "PHOTO-2026-06-10-22-13-16 5.jpg","PHOTO-2026-06-10-22-13-16 6.jpg",
+    ]),
+    coverImage: img("Hayra", ["PHOTO-2026-06-10-22-13-16.jpg"])[0],
+  },
+  {
+    id: "marshmellow",
+    name: "MARSHMELLOW",
+    displayName: "Marshmellow",
+    series: "SOLO",
+    type: "sofa",
+    folder: "Marshmellow",
+    images: img("Marshmellow", [
+      "PHOTO-2026-08-13-16-12-09 2.jpg","PHOTO-2026-08-13-16-12-09 3.jpg",
+      "PHOTO-2026-08-13-16-12-09 4.jpg","PHOTO-2026-08-13-16-12-09.jpg",
+      "PHOTO-2026-08-13-16-12-10 2.jpg","PHOTO-2026-08-13-16-12-10.jpg",
+      "PHOTO-2026-08-14-12-35-11.jpg",
+    ]),
+    coverImage: img("Marshmellow", ["PHOTO-2026-08-13-16-12-09 2.jpg"])[0],
+  },
+  {
+    id: "roma",
+    name: "ROMA",
+    displayName: "Roma",
+    series: "SOLO",
+    type: "sofa",
+    folder: "Roma",
+    images: img("Roma", [
+      "PHOTO-2026-09-11-14-34-44 2.jpg","PHOTO-2026-09-11-14-34-44.jpg",
+      "PHOTO-2026-09-11-14-34-45 2.jpg","PHOTO-2026-09-11-14-34-45 3.jpg",
+      "PHOTO-2026-09-11-14-34-45 4.jpg","PHOTO-2026-09-11-14-34-45 5.jpg",
+      "PHOTO-2026-09-11-14-34-45 6.jpg","PHOTO-2026-09-11-14-34-45 7.jpg",
+      "PHOTO-2026-09-11-14-34-45 8.jpg","PHOTO-2026-09-11-14-34-45 9.jpg",
+      "PHOTO-2026-09-11-14-34-45 10.jpg","PHOTO-2026-09-11-14-34-45.jpg",
+      "PHOTO-2026-09-11-14-34-46 2.jpg","PHOTO-2026-09-11-14-34-46 3.jpg",
+      "PHOTO-2026-09-11-14-34-46 4.jpg","PHOTO-2026-09-11-14-34-46 5.jpg",
+      "PHOTO-2026-09-11-14-34-46 6.jpg","PHOTO-2026-09-11-14-34-46.jpg",
+    ]),
+    coverImage: img("Roma", ["PHOTO-2026-09-11-14-34-44 2.jpg"])[0],
+  },
+  {
+    id: "delta-silver",
+    name: "DELTA SILVER",
+    displayName: "Delta Silber",
+    series: "DELTA",
+    type: "sofa",
+    folder: "Delta Silver",
+    images: img("Delta Silver", [
+      "PHOTO-2026-09-11-14-35-28 2.jpg","PHOTO-2026-09-11-14-35-25.jpg",
+      "PHOTO-2026-09-11-14-35-27 2.jpg","PHOTO-2026-09-11-14-35-27.jpg",
+      "PHOTO-2026-09-11-14-35-28 3.jpg","PHOTO-2026-09-11-14-35-28 4.jpg",
+      "PHOTO-2026-09-11-14-35-28.jpg","PHOTO-2026-09-11-14-35-29 2.jpg",
+      "PHOTO-2026-09-11-14-35-29 3.jpg","PHOTO-2026-09-11-14-35-29.jpg",
+      "PHOTO-2026-09-11-14-35-30.jpg","PHOTO-2026-09-11-14-35-31 2.jpg",
+      "PHOTO-2026-09-11-14-35-31 3.jpg","PHOTO-2026-09-11-14-35-31.jpg",
+      "PHOTO-2026-09-11-15-13-24 5.jpg",
+    ]),
+    coverImage: img("Delta Silver", ["PHOTO-2026-09-11-14-35-28 2.jpg"])[0],
+  },
+  {
+    id: "delta-antrazit",
+    name: "DELTA ANTRAZİT",
+    displayName: "Delta Anthrazit",
+    series: "DELTA",
+    type: "sofa",
+    folder: "Delta Antrazit",
+    images: img("Delta Antrazit", [
+      "PHOTO-2026-09-11-14-35-30 4.jpg","PHOTO-2026-09-11-14-35-27.jpg",
+      "PHOTO-2026-09-11-14-35-29.jpg","PHOTO-2026-09-11-14-35-30 2.jpg",
+      "PHOTO-2026-09-11-14-35-30 3.jpg","PHOTO-2026-09-11-14-35-30.jpg",
+      "PHOTO-2026-09-11-14-35-31.jpg",
+    ]),
+    coverImage: img("Delta Antrazit", ["PHOTO-2026-09-11-14-35-30 4.jpg"])[0],
+  },
+  {
+    id: "versage",
+    name: "VERSAGE",
+    displayName: "Versage",
+    series: "VERSAGE",
+    type: "sofa",
+    folder: "Versage",
+    images: img("Versage", [
+      "PHOTO-2026-08-11-15-37-08 4.jpg","PHOTO-2026-08-11-15-37-07.jpg",
+      "PHOTO-2026-08-11-15-37-08 2.jpg","PHOTO-2026-08-11-15-37-08 3.jpg",
+      "PHOTO-2026-08-11-15-37-08 5.jpg","PHOTO-2026-08-11-15-37-08.jpg",
+    ]),
+    coverImage: img("Versage", ["PHOTO-2026-08-11-15-37-08 4.jpg"])[0],
+  },
+  {
+    id: "versage-beige",
+    name: "VERSAGE BEIGE",
+    displayName: "Versage Beige",
+    series: "VERSAGE",
+    type: "sofa",
+    folder: "Versage Beige",
+    images: img("Versage Beige", [
+      "PHOTO-2026-08-11-15-37-06 4.jpg","PHOTO-2026-08-11-15-37-04 2.jpg",
+      "PHOTO-2026-08-11-15-37-04 3.jpg","PHOTO-2026-08-11-15-37-04 4.jpg",
+      "PHOTO-2026-08-11-15-37-04.jpg","PHOTO-2026-08-11-15-37-05 2.jpg",
+      "PHOTO-2026-08-11-15-37-05 3.jpg","PHOTO-2026-08-11-15-37-05 4.jpg",
+      "PHOTO-2026-08-11-15-37-05 5.jpg","PHOTO-2026-08-11-15-37-05 6.jpg",
+      "PHOTO-2026-08-11-15-37-05.jpg","PHOTO-2026-08-11-15-37-06 2.jpg",
+      "PHOTO-2026-08-11-15-37-06 3.jpg","PHOTO-2026-08-11-15-37-06 5.jpg",
+      "PHOTO-2026-08-11-15-37-06 6.jpg","PHOTO-2026-08-11-15-37-06.jpg",
+      "PHOTO-2026-08-11-15-37-07.jpg",
+    ]),
+    coverImage: img("Versage Beige", ["PHOTO-2026-08-11-15-37-06 4.jpg"])[0],
+  },
 ];
 
 // Multi-color-variant series (ALMİRA, AVANOS) are threaded between the other
 // couches below rather than clustered together, so the grid reads as varied.
 const CATALOG_ORDER = [
+  "hayra",
+  "marshmellow",
+  "roma",
+  "delta-silver",
   "toscana",
   "dream",
   "almira-cream",
@@ -472,6 +593,9 @@ const CATALOG_ORDER = [
   "avanos-siyah",
   "pablo-kose",
   "almira-ecksofa-creme",
+  "delta-antrazit",
+  "versage",
+  "versage-beige",
 ] as const;
 
 const CATALOG_ID_SET = new Set<string>(CATALOG_ORDER as readonly string[]);
