@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import ZoomableSwipeArea from "@/components/ZoomableSwipeArea";
 import { Sofa } from "@/data/sofas";
 
 interface LightboxProps {
@@ -110,18 +111,6 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
           >
             {/* Main image area with swipe */}
             <div className="relative flex-1 aspect-[4/3] overflow-hidden bg-dark-0">
-              {/* Swipe gesture layer */}
-              <motion.div
-                className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing"
-                drag={images.length > 1 ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.15}
-                onDragEnd={(_, info) => {
-                  if (info.offset.x < -45) goNext();
-                  else if (info.offset.x > 45) goPrev();
-                }}
-              />
-
               {/* Preload neighboring images so swiping feels instant */}
               {images.length > 1 && (
                 <div className="absolute w-px h-px opacity-0 pointer-events-none overflow-hidden">
@@ -142,28 +131,35 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
                 </div>
               )}
 
-              <AnimatePresence custom={direction} mode="wait">
-                <motion.div
-                  key={`${sofa.id}-${currentIndex}`}
-                  custom={direction}
-                  variants={variants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={images[currentIndex]}
-                    alt={`${sofa.displayName} - ${currentIndex + 1}`}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 1024px) 100vw, 70vw"
-                    quality={68}
-                    priority
-                  />
-                </motion.div>
-              </AnimatePresence>
+              <ZoomableSwipeArea
+                resetKey={`${sofa.id}-${currentIndex}`}
+                canSwipe={images.length > 1}
+                onNext={goNext}
+                onPrev={goPrev}
+              >
+                <AnimatePresence custom={direction} mode="wait">
+                  <motion.div
+                    key={`${sofa.id}-${currentIndex}`}
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={images[currentIndex]}
+                      alt={`${sofa.displayName} - ${currentIndex + 1}`}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 1024px) 100vw, 70vw"
+                      quality={68}
+                      priority
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                </ZoomableSwipeArea>
 
               {/* Prev / Next arrows */}
               {images.length > 1 && (
