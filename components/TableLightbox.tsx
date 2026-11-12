@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import ZoomableSwipeArea from "@/components/ZoomableSwipeArea";
 import { Table } from "@/data/tables";
+import { useLang, useVariantLabel } from "@/lib/i18n";
 
 interface TableLightboxProps {
   table: Table | null;
@@ -16,6 +17,8 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [showSwipeHint, setShowSwipeHint] = useState(true);
+  const { t, num, photos } = useLang();
+  const variantLabel = useVariantLabel();
 
   const images = table?.images ?? [];
 
@@ -84,7 +87,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
             onClick={onClose}
             className="absolute z-20 flex items-center justify-center w-11 h-11 bg-black/60 border border-white/15 text-red-500 hover:text-red-400 hover:border-red-500/50 transition-all duration-300 backdrop-blur-sm"
             style={{ top: "max(1rem, env(safe-area-inset-top))", right: "1rem" }}
-            aria-label="Schließen"
+            aria-label={t("lightbox.close")}
           >
             <X size={18} />
           </button>
@@ -155,7 +158,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                 <>
                   <motion.button
                     onClick={goPrev}
-                    aria-label="Vorheriges Bild"
+                    aria-label={t("lightbox.prev")}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -165,7 +168,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                   </motion.button>
                   <motion.button
                     onClick={goNext}
-                    aria-label="Nächstes Bild"
+                    aria-label={t("lightbox.next")}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.88 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -179,7 +182,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
               {/* Image counter */}
               <div className="hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-1.5">
                 <span className="text-white/50 text-xs tracking-[0.25em]">
-                  {currentIndex + 1} / {images.length}
+                  {num(currentIndex + 1)} / {num(images.length)}
                 </span>
               </div>
 
@@ -194,7 +197,7 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                       transition={{ duration: 0.4 }}
                       className="absolute top-4 left-1/2 -translate-x-1/2 z-20 md:hidden bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-2 pointer-events-none"
                     >
-                      <span className="text-white/50 text-[10px] tracking-[0.3em]">← wischen →</span>
+                      <span className="text-white/50 text-[10px] tracking-[0.3em]">{t("lightbox.swipe")}</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -202,17 +205,17 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
             </div>
 
             {/* Sidebar info + thumbnails */}
-            <div className="w-full lg:w-72 flex flex-col border-t lg:border-t-0 lg:border-l border-white/8">
+            <div className="w-full lg:w-72 flex flex-col border-t lg:border-t-0 lg:border-s border-white/8">
               {/* Header */}
               <div className="p-6 border-b border-white/8">
                 <p className="text-gold text-[10px] tracking-[0.4em] uppercase mb-2">
-                  {table.variant ? `${table.series} · ${table.variant}` : table.series}
+                  {table.variant ? `${table.series} · ${variantLabel(table.variant)}` : table.series}
                 </p>
                 <h2 className="text-white font-light tracking-[0.2em] text-lg uppercase">
                   {table.displayName}
                 </h2>
                 <p className="text-white/30 text-xs tracking-wide mt-1">
-                  {images.length} Fotos
+                  {photos(images.length)}
                 </p>
               </div>
 

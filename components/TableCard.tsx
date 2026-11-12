@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Table } from "@/data/tables";
+import { useLang, useVariantLabel } from "@/lib/i18n";
 
 interface TableCardProps {
   table: Table;
@@ -14,6 +15,8 @@ interface TableCardProps {
 export default function TableCard({ table, index, onClick }: TableCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const { photos } = useLang();
+  const variantLabel = useVariantLabel();
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -92,8 +95,8 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
 
           {/* Photo count badge */}
           <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/50 backdrop-blur-sm border border-white/10 px-1.5 sm:px-2 py-0.5 sm:py-1">
-            <span className="text-white/60 text-[9px] sm:text-[10px] tracking-widest">
-              {table.images.length} FOTOS
+            <span className="text-white/60 text-[9px] sm:text-[10px] tracking-widest uppercase">
+              {photos(table.images.length)}
             </span>
           </div>
 
@@ -110,7 +113,7 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
           <div className="min-w-0 flex-1">
             {table.variant && (
               <p className="text-white/40 text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-1 truncate">
-                {table.variant}
+                {variantLabel(table.variant)}
               </p>
             )}
             <h3 className="text-white font-light tracking-[0.1em] sm:tracking-[0.15em] text-xs sm:text-sm uppercase truncate group-hover:text-gold transition-colors duration-300">

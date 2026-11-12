@@ -7,13 +7,13 @@ import {
   Table,
   ProductType,
   getTablesByType,
-  PRODUCT_TYPE_LABELS,
   PRODUCT_TYPE_SLUGS,
   ROOMS,
   DEFAULT_PRODUCT_TYPE,
   productTypeFromSlug,
 } from "@/data/tables";
 import TableCard from "./TableCard";
+import { useLang } from "@/lib/i18n";
 
 interface TableGridProps {
   onCardClick: (table: Table) => void;
@@ -32,6 +32,7 @@ interface BrowserProps extends TableGridProps {
 
 function TableBrowser({ onCardClick, active, onSelect }: BrowserProps) {
   const gridTopRef = useRef<HTMLDivElement>(null);
+  const { t, num, collections } = useLang();
   const activeRoom = ROOMS.find((r) => r.types.includes(active)) ?? ROOMS[0];
   const group = typed.filter((t) => t.productType === active);
 
@@ -71,7 +72,7 @@ function TableBrowser({ onCardClick, active, onSelect }: BrowserProps) {
                       className="absolute inset-0 rounded-full bg-white shadow-[0_4px_18px_rgba(255,255,255,0.18)]"
                     />
                   )}
-                  <span className="relative">{room.label}</span>
+                  <span className="relative">{t(`room.${room.id}`)}</span>
                 </button>
               );
             })}
@@ -94,13 +95,13 @@ function TableBrowser({ onCardClick, active, onSelect }: BrowserProps) {
                       : "bg-blue-600/15 border-blue-500/40 text-blue-100 hover:bg-blue-600/30"
                   }`}
                 >
-                  {PRODUCT_TYPE_LABELS[type]}
+                  {t(`type.${type}`)}
                   <span
                     className={`min-w-6 h-6 px-1.5 rounded-full flex items-center justify-center text-[11px] tracking-normal ${
                       isActive ? "bg-white text-blue-700" : "bg-blue-500/25 text-blue-100"
                     }`}
                   >
-                    {countFor(type)}
+                    {num(countFor(type))}
                   </span>
                 </motion.button>
               );
@@ -121,16 +122,16 @@ function TableBrowser({ onCardClick, active, onSelect }: BrowserProps) {
           >
             <div className="flex items-baseline justify-between mb-5">
               <h2 className="text-white font-light tracking-[0.25em] text-base sm:text-lg uppercase">
-                {PRODUCT_TYPE_LABELS[active]}
+                {t(`type.${active}`)}
               </h2>
               <p className="text-white/35 text-[11px] tracking-[0.2em] uppercase">
-                {group.length} {group.length === 1 ? "Kollektion" : "Kollektionen"}
+                {collections(group.length)}
               </p>
             </div>
 
             {group.length === 0 ? (
               <p className="text-center py-24 text-white/25 tracking-[0.3em] text-sm uppercase">
-                Keine Ergebnisse gefunden
+                {t("common.noResults")}
               </p>
             ) : (
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">

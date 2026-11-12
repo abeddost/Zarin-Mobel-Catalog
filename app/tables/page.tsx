@@ -7,9 +7,11 @@ import Navbar from "@/components/Navbar";
 import TableGrid from "@/components/TableGrid";
 import TableLightbox from "@/components/TableLightbox";
 import CatalogSwitchButton from "@/components/CatalogSwitchButton";
+import { useLang } from "@/lib/i18n";
 
 export default function TablesPage() {
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
+  const { t } = useLang();
 
   return (
     <main className="min-h-screen bg-dark">
@@ -27,13 +29,13 @@ export default function TablesPage() {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="relative flex items-center gap-6"
           >
-            <div className="h-px w-24 bg-gradient-to-r from-transparent to-gold" />
+            <div className="hidden sm:block h-px w-24 bg-gradient-to-r from-transparent to-gold" />
             <div className="text-center">
               <h2 className="text-white font-extralight tracking-[0.3em] uppercase text-2xl">
-                Tische, Stühle & Schlafzimmer
+                {t("tables.title")}
               </h2>
             </div>
-            <div className="h-px w-24 bg-gradient-to-l from-transparent to-gold" />
+            <div className="hidden sm:block h-px w-24 bg-gradient-to-l from-transparent to-gold" />
           </motion.div>
         </div>
 
@@ -54,7 +56,7 @@ export default function TablesPage() {
               </span>
             </div>
             <p className="text-white/15 text-xs tracking-widest">
-              © {new Date().getFullYear()} · Premium-Möbelkollektion
+              © {new Date().getFullYear()} · {t("common.premium")}
             </p>
           </div>
         </footer>
@@ -64,7 +66,7 @@ export default function TablesPage() {
       <TableLightbox table={selectedTable} onClose={() => setSelectedTable(null)} />
 
       {/* Floating navigation button — Möbel Catalogue */}
-      <CatalogSwitchButton href="/" label="Möbelkatalog" direction="left" />
+      <CatalogSwitchButton href="/" label={t("tables.toSofas")} direction="left" />
     </main>
   );
 }

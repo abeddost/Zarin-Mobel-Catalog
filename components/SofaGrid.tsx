@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Sofa } from "@/data/sofas";
 import SofaCard from "./SofaCard";
+import { useLang } from "@/lib/i18n";
 
 interface SofaGridProps {
   sofas: Sofa[];
@@ -10,6 +11,7 @@ interface SofaGridProps {
 }
 
 export default function SofaGrid({ sofas, onCardClick }: SofaGridProps) {
+  const { t } = useLang();
   if (sofas.length === 0) {
     return (
       <motion.div
@@ -18,7 +20,7 @@ export default function SofaGrid({ sofas, onCardClick }: SofaGridProps) {
         className="text-center py-32"
       >
         <p className="text-white/25 tracking-[0.3em] text-sm uppercase">
-          Keine Ergebnisse gefunden
+          {t("common.noResults")}
         </p>
       </motion.div>
     );

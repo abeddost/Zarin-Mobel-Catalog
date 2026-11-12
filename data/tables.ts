@@ -51,7 +51,7 @@ export const PRODUCT_TYPE_SLUGS: Record<ProductType, string> = {
 };
 
 export interface Room {
-  id: string;
+  id: 'esszimmer' | 'wohnzimmer' | 'schlafzimmer';
   label: string;
   types: ProductType[];
 }

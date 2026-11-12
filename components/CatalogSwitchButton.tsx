@@ -31,9 +31,9 @@ export default function CatalogSwitchButton({ href, label, direction }: CatalogS
       className="fixed bottom-28 md:bottom-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white px-9 py-5 rounded-full text-base font-semibold tracking-[0.15em] uppercase transition-colors"
       style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
     >
-      {direction === "left" && <Icon size={20} />}
+      {direction === "left" && <Icon size={20} className="rtl:-scale-x-100" />}
       {label}
-      {direction === "right" && <Icon size={20} />}
+      {direction === "right" && <Icon size={20} className="rtl:-scale-x-100" />}
     </motion.a>
   );
 }

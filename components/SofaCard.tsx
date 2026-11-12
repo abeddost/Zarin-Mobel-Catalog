@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Sofa } from "@/data/sofas";
+import { useLang } from "@/lib/i18n";
 
 interface SofaCardProps {
   sofa: Sofa;
@@ -11,15 +12,10 @@ interface SofaCardProps {
   onClick: () => void;
 }
 
-const TYPE_BADGE: Record<string, string> = {
-  sofa: "Sofa",
-  corner: "Ecksofa",
-  armchair: "Sessel",
-};
-
 export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const { t, photos } = useLang();
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -98,8 +94,8 @@ export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
 
           {/* Photo count badge */}
           <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm border border-white/10 px-2 py-1">
-            <span className="text-white/60 text-[10px] tracking-widest">
-              {sofa.images.length} FOTOS
+            <span className="text-white/60 text-[10px] tracking-widest uppercase">
+              {photos(sofa.images.length)}
             </span>
           </div>
 
@@ -117,7 +113,7 @@ export default function SofaCard({ sofa, index, onClick }: SofaCardProps) {
         <div className="p-4 flex items-end justify-between gap-3">
           <div className="min-w-0 flex-1">
             <p className="text-white/40 text-[10px] tracking-[0.25em] uppercase mb-1 truncate">
-              {TYPE_BADGE[sofa.type]}
+              {t(`sofa.${sofa.type}`)}
             </p>
             <h3 className="text-white font-light tracking-[0.15em] text-sm uppercase truncate group-hover:text-gold transition-colors duration-300">
               {sofa.displayName}

@@ -26,6 +26,15 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Persian: own font, and no letter-spacing — spacing breaks the joins
+   between Persian letters. !important beats the tracking-* utilities. */
+html[lang="fa"] body {
+  font-family: var(--font-vazirmatn), system-ui, sans-serif;
+}
+html[lang="fa"] * {
+  letter-spacing: 0 !important;
+}
+
 ::selection {
   background: rgba(201, 169, 110, 0.25);
   color: #fff;
