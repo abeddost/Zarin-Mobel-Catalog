@@ -75,7 +75,7 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
             alt={table.displayName}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 1024px) 50vw, 25vw"
             quality={62}
           />
 
@@ -91,14 +91,14 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70" />
 
           {/* Photo count badge */}
-          <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm border border-white/10 px-2 py-1">
-            <span className="text-white/60 text-[10px] tracking-widest">
+          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/50 backdrop-blur-sm border border-white/10 px-1.5 sm:px-2 py-0.5 sm:py-1">
+            <span className="text-white/60 text-[9px] sm:text-[10px] tracking-widest">
               {table.images.length} FOTOS
             </span>
           </div>
 
-          {/* Series badge */}
-          <div className="absolute top-3 left-3 bg-gold/20 backdrop-blur-sm border border-gold/30 px-2 py-1">
+          {/* Series badge (hidden on phones, the name below already says it) */}
+          <div className="hidden sm:block absolute top-3 left-3 bg-gold/20 backdrop-blur-sm border border-gold/30 px-2 py-1">
             <span className="text-gold text-[10px] tracking-widest font-medium">
               {table.series}
             </span>
@@ -106,19 +106,19 @@ export default function TableCard({ table, index, onClick }: TableCardProps) {
         </div>
 
         {/* Card footer */}
-        <div className="p-4 flex items-end justify-between gap-3">
+        <div className="p-3 sm:p-4 flex items-end justify-between gap-3">
           <div className="min-w-0 flex-1">
             {table.variant && (
-              <p className="text-white/40 text-[10px] tracking-[0.25em] uppercase mb-1 truncate">
+              <p className="text-white/40 text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-1 truncate">
                 {table.variant}
               </p>
             )}
-            <h3 className="text-white font-light tracking-[0.15em] text-sm uppercase truncate group-hover:text-gold transition-colors duration-300">
+            <h3 className="text-white font-light tracking-[0.1em] sm:tracking-[0.15em] text-xs sm:text-sm uppercase truncate group-hover:text-gold transition-colors duration-300">
               {table.displayName}
             </h3>
           </div>
           <motion.div
-            className="w-8 h-8 border border-white/20 flex items-center justify-center group-hover:border-gold/60 transition-colors duration-300 shrink-0"
+            className="hidden sm:flex w-8 h-8 border border-white/20 items-center justify-center group-hover:border-gold/60 transition-colors duration-300 shrink-0"
             animate={{ rotate: isHovered ? 45 : 0 }}
             transition={{ duration: 0.3 }}
           >

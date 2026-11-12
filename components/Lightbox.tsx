@@ -188,7 +188,7 @@ export default function Lightbox({ sofa, onClose }: LightboxProps) {
               )}
 
               {/* Image counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-1.5">
+              <div className="hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 backdrop-blur-sm border border-white/10 px-4 py-1.5">
                 <span className="text-white/50 text-xs tracking-[0.25em]">
                   {currentIndex + 1} / {images.length}
                 </span>

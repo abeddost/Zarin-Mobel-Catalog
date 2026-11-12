@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
-const SRC_DIR = path.join(process.cwd(), "public", "sofas");
+const SRC_DIR = path.join(process.cwd(), "source-images", "sofas");
 const OUT_DIR = path.join(process.cwd(), "public", "sofas-optimized");
 const MAX_WIDTH = 1600;
 const QUALITY = 68;

@@ -18,7 +18,7 @@ export default function TablesPage() {
       {/* Catalogue section */}
       <section id="catalogue" className="relative pt-28">
         {/* Section divider */}
-        <div className="relative py-16 flex items-center justify-center overflow-hidden">
+        <div className="relative py-8 sm:py-12 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark-2 to-dark" />
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
@@ -29,11 +29,8 @@ export default function TablesPage() {
           >
             <div className="h-px w-24 bg-gradient-to-r from-transparent to-gold" />
             <div className="text-center">
-              <p className="text-gold text-[10px] tracking-[0.5em] uppercase mb-2">
-                Greens Kollektion
-              </p>
               <h2 className="text-white font-extralight tracking-[0.3em] uppercase text-2xl">
-                Tische & Stühle
+                Tische, Stühle & Schlafzimmer
               </h2>
             </div>
             <div className="h-px w-24 bg-gradient-to-l from-transparent to-gold" />
@@ -41,7 +38,7 @@ export default function TablesPage() {
         </div>
 
         {/* Grid area */}
-        <div className="w-full max-w-[1500px] mx-auto px-6 py-12">
+        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 pb-12">
           <TableGrid onCardClick={setSelectedTable} />
         </div>
 

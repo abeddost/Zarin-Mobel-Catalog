@@ -23,7 +23,7 @@ function img(folder: string, files: string[]): string[] {
 }
 
 function dim(file: string): string {
-  return `/sofas%20dimensions/${encodeURIComponent(file)}`;
+  return `/sofas%20dimensions/${encodeURIComponent(toOptimizedFile(file))}`;
 }
 
 const sofasRaw: Sofa[] = [
@@ -333,12 +333,9 @@ const sofasRaw: Sofa[] = [
     type: "sofa",
     folder: "MOTTO",
     images: img("MOTTO", [
-      "CASALLİNİ_149022.jpg","CASALLİNİ_149028.jpg","CASALLİNİ_149030.jpg",
+      "CASALLİNİ_149022.jpg","CASALLİNİ_149028.jpg",
       "CASALLİNİ_149031.jpg","CASALLİNİ_149035.jpg","CASALLİNİ_149038.jpg",
-      "CASALLİNİ_149039.jpg","CASALLİNİ_149040.jpg","CASALLİNİ_149042.jpg",
-      "CASALLİNİ_149044.jpg","CASALLİNİ_149045.jpg","CASALLİNİ_149046.jpg",
-      "CASALLİNİ_149050.jpg","CASALLİNİ_149055.jpg","CASALLİNİ_149058.jpg",
-      "CASALLİNİ_149060.jpg",
+      "CASALLİNİ_149039.jpg","CASALLİNİ_149040.jpg",
     ]).concat([dim("Motto.png")]),
     coverImage: img("MOTTO", ["CASALLİNİ_149022.jpg"])[0],
   },
@@ -382,11 +379,11 @@ const sofasRaw: Sofa[] = [
     type: "armchair",
     folder: "PUMA KOLTUK",
     images: img("PUMA KOLTUK", [
-      "CASALLİNİ_144083.jpg","CASALLİNİ_144085.jpg","CASALLİNİ_144086.jpg",
-      "CASALLİNİ_144087.jpg","CASALLİNİ_144090.jpg","CASALLİNİ_144091.jpg",
-      "CASALLİNİ_144092.jpg","CASALLİNİ_144093.jpg","CASALLİNİ_144094.jpg",
+      "CASALLİNİ_144083.jpg",
+      "CASALLİNİ_144087.jpg","CASALLİNİ_144091.jpg",
+      "CASALLİNİ_144092.jpg","CASALLİNİ_144093.jpg",
       "CASALLİNİ_144095.jpg","CASALLİNİ_144096.jpg","CASALLİNİ_144097.jpg",
-      "CASALLİNİ_144098.jpg","CASALLİNİ_144099.jpg","CASALLİNİ_144100.jpg",
+      "CASALLİNİ_144098.jpg","CASALLİNİ_144100.jpg",
       "CASALLİNİ_144101.jpg",
     ]).concat([dim("Puma.png")]),
     coverImage: img("PUMA KOLTUK", ["CASALLİNİ_144083.jpg"])[0],

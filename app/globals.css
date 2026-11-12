@@ -13,16 +13,16 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--dark);
+  background-color: var(--color-dark);
   font-size: 16px;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
-  background-color: var(--dark);
+  background-color: var(--color-dark);
   color: #fff;
   font-family: system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -35,7 +35,7 @@ body {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--dark);
+  background: var(--color-dark);
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(201, 169, 110, 0.3);
@@ -43,12 +43,6 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(201, 169, 110, 0.6);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 .scrollbar-hide {

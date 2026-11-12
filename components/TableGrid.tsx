@@ -1,77 +1,184 @@
 "use client";
 
+import { Suspense, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Table, getTablesByType, PRODUCT_TYPE_ORDER, PRODUCT_TYPE_LABELS, TypedTable } from "@/data/tables";
+import {
+  Table,
+  ProductType,
+  getTablesByType,
+  PRODUCT_TYPE_LABELS,
+  PRODUCT_TYPE_SLUGS,
+  ROOMS,
+  DEFAULT_PRODUCT_TYPE,
+  productTypeFromSlug,
+} from "@/data/tables";
 import TableCard from "./TableCard";
 
 interface TableGridProps {
   onCardClick: (table: Table) => void;
 }
 
-export default function TableGrid({ onCardClick }: TableGridProps) {
-  const typed = getTablesByType();
+const typed = getTablesByType();
 
-  if (typed.length === 0) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="text-center py-32"
-      >
-        <p className="text-white/25 tracking-[0.3em] text-sm uppercase">
-          Keine Ergebnisse gefunden
-        </p>
-      </motion.div>
-    );
+function countFor(type: ProductType) {
+  return typed.filter((t) => t.productType === type).length;
+}
+
+interface BrowserProps extends TableGridProps {
+  active: ProductType;
+  onSelect: (type: ProductType) => void;
+}
+
+function TableBrowser({ onCardClick, active, onSelect }: BrowserProps) {
+  const gridTopRef = useRef<HTMLDivElement>(null);
+  const activeRoom = ROOMS.find((r) => r.types.includes(active)) ?? ROOMS[0];
+  const group = typed.filter((t) => t.productType === active);
+
+  function select(type: ProductType) {
+    if (type === active) return;
+    onSelect(type);
+    // If the menu is stuck at the top, jump back to the start of the grid.
+    const el = gridTopRef.current;
+    if (el && el.getBoundingClientRect().top < 0) {
+      el.scrollIntoView({ block: "start" });
+    }
   }
 
   return (
-    <div className="space-y-20">
-      {PRODUCT_TYPE_ORDER.map((type) => {
-        const group = typed.filter((t) => t.productType === type);
-        if (group.length === 0) return null;
-        return (
-          <section key={type}>
-            {/* Section header */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-6 mb-10"
-            >
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/30" />
-              <div className="text-center">
-                <h2 className="text-gold font-light tracking-[0.4em] text-sm uppercase">
-                  {PRODUCT_TYPE_LABELS[type]}
-                </h2>
-                <p className="text-white/20 text-[10px] tracking-[0.25em] mt-1">
-                  {group.length} {group.length === 1 ? "Kollektion" : "Kollektionen"}
-                </p>
-              </div>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/30" />
-            </motion.div>
-
-            {/* Cards */}
-            <motion.div
-              layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center"
-            >
-              <AnimatePresence mode="popLayout">
-                {group.map((table: TypedTable, i: number) => (
-                  <div key={table.id} className="w-full max-w-[34rem]">
-                    <TableCard
-                      table={table}
-                      index={i}
-                      onClick={() => onCardClick(table)}
+    <div>
+      {/* Sticky room + category menu */}
+      <div className="sticky top-[64px] md:top-[56px] z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 pb-4 bg-dark/95 backdrop-blur-md border-b border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
+        <div className="max-w-3xl mx-auto">
+          {/* Rooms: segmented switch */}
+          <div className="grid grid-cols-3 gap-1 p-1 rounded-full bg-white/[0.06] border border-white/10">
+            {ROOMS.map((room) => {
+              const isActive = room.id === activeRoom.id;
+              return (
+                <button
+                  key={room.id}
+                  type="button"
+                  onClick={() => select(room.types[0])}
+                  aria-pressed={isActive}
+                  className={`relative rounded-full py-2.5 sm:py-3 text-[11px] sm:text-sm font-semibold tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-colors ${
+                    isActive ? "text-neutral-900" : "text-white/70 hover:text-white"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="room-pill"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                      className="absolute inset-0 rounded-full bg-white shadow-[0_4px_18px_rgba(255,255,255,0.18)]"
                     />
-                  </div>
+                  )}
+                  <span className="relative">{room.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Categories in the active room: blue pills */}
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            {activeRoom.types.map((type) => {
+              const isActive = type === active;
+              return (
+                <motion.button
+                  key={type}
+                  type="button"
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => select(type)}
+                  aria-pressed={isActive}
+                  className={`shrink-0 flex items-center gap-2 pl-3.5 sm:pl-4 pr-1.5 py-1.5 rounded-full border text-[11px] sm:text-[13px] font-semibold tracking-[0.06em] sm:tracking-[0.1em] uppercase transition-colors ${
+                    isActive
+                      ? "bg-blue-600 border-blue-500 text-white shadow-[0_6px_24px_rgba(37,99,235,0.55)]"
+                      : "bg-blue-600/15 border-blue-500/40 text-blue-100 hover:bg-blue-600/30"
+                  }`}
+                >
+                  {PRODUCT_TYPE_LABELS[type]}
+                  <span
+                    className={`min-w-6 h-6 px-1.5 rounded-full flex items-center justify-center text-[11px] tracking-normal ${
+                      isActive ? "bg-white text-blue-700" : "bg-blue-500/25 text-blue-100"
+                    }`}
+                  >
+                    {countFor(type)}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Grid for the active category */}
+      <div ref={gridTopRef} className="scroll-mt-[160px] pt-8">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-baseline justify-between mb-5">
+              <h2 className="text-white font-light tracking-[0.25em] text-base sm:text-lg uppercase">
+                {PRODUCT_TYPE_LABELS[active]}
+              </h2>
+              <p className="text-white/35 text-[11px] tracking-[0.2em] uppercase">
+                {group.length} {group.length === 1 ? "Kollektion" : "Kollektionen"}
+              </p>
+            </div>
+
+            {group.length === 0 ? (
+              <p className="text-center py-24 text-white/25 tracking-[0.3em] text-sm uppercase">
+                Keine Ergebnisse gefunden
+              </p>
+            ) : (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+                {group.map((table, i) => (
+                  <TableCard
+                    key={table.id}
+                    table={table}
+                    index={i}
+                    onClick={() => onCardClick(table)}
+                  />
                 ))}
-              </AnimatePresence>
-            </motion.div>
-          </section>
-        );
-      })}
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
+  );
+}
+
+// Reads and writes the selected category in the URL (?kategorie=betten).
+function UrlTableBrowser({ onCardClick }: TableGridProps) {
+  const searchParams = useSearchParams();
+  const active = productTypeFromSlug(searchParams.get("kategorie"));
+
+  function onSelect(type: ProductType) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (type === DEFAULT_PRODUCT_TYPE) params.delete("kategorie");
+    else params.set("kategorie", PRODUCT_TYPE_SLUGS[type]);
+    const query = params.toString();
+    window.history.replaceState(null, "", query ? `?${query}` : window.location.pathname);
+  }
+
+  return <TableBrowser onCardClick={onCardClick} active={active} onSelect={onSelect} />;
+}
+
+export default function TableGrid({ onCardClick }: TableGridProps) {
+  return (
+    <Suspense
+      fallback={
+        <TableBrowser
+          onCardClick={onCardClick}
+          active={DEFAULT_PRODUCT_TYPE}
+          onSelect={() => {}}
+        />
+      }
+    >
+      <UrlTableBrowser onCardClick={onCardClick} />
+    </Suspense>
   );
 }
