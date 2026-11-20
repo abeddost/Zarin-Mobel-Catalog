@@ -3,6 +3,7 @@
 import { Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { Coffee, CookingPot, HandPlatter, Lamp, Luggage, Utensils, type LucideIcon } from "lucide-react";
 import {
   ZorofCategory,
   ZorofProduct,
@@ -18,6 +19,16 @@ import { useLang } from "@/lib/i18n";
 interface ZorofGridProps {
   onCardClick: (product: ZorofProduct) => void;
 }
+
+// One icon per group, so the group buttons are easy to tell apart at a glance.
+const GROUP_ICONS: Record<string, LucideIcon> = {
+  servieren: HandPlatter,
+  geschirr: Utensils,
+  tee: Coffee,
+  kueche: CookingPot,
+  deko: Lamp,
+  reise: Luggage,
+};
 
 function countFor(category: ZorofCategory) {
   return zorofProducts.filter((p) => p.category === category).length;
@@ -49,35 +60,33 @@ function ZorofBrowser({ onCardClick, active, onSelect }: BrowserProps) {
       {/* Sticky group + category menu */}
       <div className="sticky top-[64px] md:top-[56px] z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 pb-4 bg-dark/95 backdrop-blur-md border-b border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
         <div className="max-w-4xl mx-auto">
-          {/* Groups: segmented switch (2 rows of 3 on phones) */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 p-1 rounded-2xl sm:rounded-full bg-white/[0.06] border border-white/10">
+          {/* Groups: one button each (2 rows of 3 on phones, one row on desktop) */}
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {ZOROF_GROUPS.map((g) => {
               const isActive = g.id === activeGroup.id;
+              const Icon = GROUP_ICONS[g.id] ?? HandPlatter;
               return (
-                <button
+                <motion.button
                   key={g.id}
                   type="button"
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => select(g.categories[0])}
                   aria-pressed={isActive}
-                  className={`relative rounded-full px-1 py-2.5 sm:py-3 text-[11px] sm:text-xs font-semibold tracking-[0.04em] sm:tracking-[0.08em] uppercase leading-tight transition-colors ${
-                    isActive ? "text-neutral-900" : "text-white/70 hover:text-white"
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border px-1 py-2.5 sm:py-3 text-[11px] sm:text-xs font-semibold tracking-[0.04em] sm:tracking-[0.08em] uppercase leading-tight transition-colors ${
+                    isActive
+                      ? "border-gold-light bg-gradient-to-b from-gold-light to-gold text-on-gold shadow-[0_8px_24px_rgba(201,169,110,0.4)]"
+                      : "border-white/15 bg-white/[0.07] text-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_2px_8px_rgba(0,0,0,0.35)] hover:border-gold/60 hover:bg-white/[0.12] hover:text-white"
                   }`}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="zorof-group-pill"
-                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                      className="absolute inset-0 rounded-full bg-white shadow-[0_4px_18px_rgba(255,255,255,0.18)]"
-                    />
-                  )}
-                  <span className="relative">{g.label[lang]}</span>
-                </button>
+                  <Icon size={20} strokeWidth={1.75} className={isActive ? "" : "text-gold"} />
+                  <span>{g.label[lang]}</span>
+                </motion.button>
               );
             })}
           </div>
 
           {/* Categories in the active group: blue pills */}
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
+          <div className="mt-3.5 flex flex-wrap justify-center gap-2">
             {activeGroup.categories.map((category) => {
               const isActive = category === active;
               return (
@@ -87,16 +96,16 @@ function ZorofBrowser({ onCardClick, active, onSelect }: BrowserProps) {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => select(category)}
                   aria-pressed={isActive}
-                  className={`shrink-0 flex items-center gap-2 pl-3.5 sm:pl-4 pr-1.5 py-1.5 rounded-full border text-[11px] sm:text-[13px] font-semibold tracking-[0.06em] sm:tracking-[0.1em] uppercase transition-colors ${
+                  className={`shrink-0 flex items-center gap-2 min-h-10 ps-4 pe-1.5 py-1.5 rounded-full border text-xs sm:text-[13px] font-semibold tracking-[0.06em] sm:tracking-[0.1em] uppercase transition-colors ${
                     isActive
-                      ? "bg-blue-600 border-blue-500 text-white shadow-[0_6px_24px_rgba(37,99,235,0.55)]"
-                      : "bg-blue-600/15 border-blue-500/40 text-blue-100 hover:bg-blue-600/30"
+                      ? "bg-blue-600 border-blue-400 text-white shadow-[0_6px_24px_rgba(37,99,235,0.55)]"
+                      : "bg-[#141c33] border-blue-400/45 text-white/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_2px_8px_rgba(0,0,0,0.35)] hover:bg-[#1b2748] hover:border-blue-400/80"
                   }`}
                 >
                   {ZOROF_CATEGORIES[category].label[lang]}
                   <span
-                    className={`min-w-6 h-6 px-1.5 rounded-full flex items-center justify-center text-[11px] tracking-normal ${
-                      isActive ? "bg-white text-blue-700" : "bg-blue-500/25 text-blue-100"
+                    className={`min-w-7 h-7 px-1.5 rounded-full flex items-center justify-center text-[11px] tracking-normal ${
+                      isActive ? "bg-white text-blue-700" : "bg-blue-500/30 text-blue-100"
                     }`}
                   >
                     {num(countFor(category))}
@@ -109,7 +118,7 @@ function ZorofBrowser({ onCardClick, active, onSelect }: BrowserProps) {
       </div>
 
       {/* Grid for the active category */}
-      <div ref={gridTopRef} className="scroll-mt-[200px] pt-8">
+      <div ref={gridTopRef} className="scroll-mt-[240px] sm:scroll-mt-[190px] pt-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
