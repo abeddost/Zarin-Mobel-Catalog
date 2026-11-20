@@ -58,7 +58,7 @@ function ZorofBrowser({ onCardClick, active, onSelect }: BrowserProps) {
   return (
     <div>
       {/* Sticky group + category menu */}
-      <div className="sticky top-[64px] md:top-[56px] z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 pb-4 bg-dark/95 backdrop-blur-md border-b border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
+      <div className="sticky top-16 z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 pb-4 bg-dark/95 backdrop-blur-md border-b border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
         <div className="max-w-4xl mx-auto">
           {/* Groups: one button each (2 rows of 3 on phones, one row on desktop) */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -132,7 +132,7 @@ function ZorofBrowser({ onCardClick, active, onSelect }: BrowserProps) {
                 {ZOROF_CATEGORIES[active].label[lang]}
               </h2>
               <p className="text-white/35 text-[11px] tracking-[0.2em] uppercase">
-                {num(group.length)} {t("zorof.products")}
+                {num(group.length)} {t("unit.products")}
               </p>
             </div>
 

@@ -49,7 +49,7 @@ function TableBrowser({ onCardClick, active, onSelect }: BrowserProps) {
   return (
     <div>
       {/* Sticky room + category menu */}
-      <div className="sticky top-[64px] md:top-[56px] z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 pb-4 bg-dark/95 backdrop-blur-md border-b border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
+      <div className="sticky top-16 z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 pb-4 bg-dark/95 backdrop-blur-md border-b border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
         <div className="max-w-3xl mx-auto">
           {/* Rooms: segmented switch */}
           <div className="grid grid-cols-3 gap-1 p-1 rounded-full bg-white/[0.06] border border-white/10">

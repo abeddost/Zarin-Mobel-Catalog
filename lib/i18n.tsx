@@ -9,26 +9,23 @@ const STORAGE_KEY = "zarin-lang";
 
 // All UI text. Model names (e.g. "Gucci Cream Gold") are not translated.
 const dict = {
-  "nav.collection":      { fa: "مجموعه", de: "Kollektion" },
-  "nav.about":           { fa: "درباره ما", de: "Über uns" },
   "nav.contact":         { fa: "تماس", de: "Kontakt" },
-  "nav.tables":          { fa: "میز و اتاق خواب", de: "Tische" },
-  "nav.zorof":           { fa: "ظروف", de: "Haushalt" },
+  "nav.catalogs":        { fa: "کاتالوگ‌ها", de: "Kataloge" },
+
+  "catalog.sofas":       { fa: "مبل", de: "Sofas & Sessel" },
+  "catalog.sofas.short": { fa: "مبل", de: "Sofas" },
+  "catalog.tables":      { fa: "میز و اتاق خواب", de: "Tische & Schlafzimmer" },
+  "catalog.tables.short":{ fa: "میز", de: "Tische" },
+  "catalog.zorof":       { fa: "ظروف", de: "Geschirr & Haushalt" },
+  "catalog.zorof.short": { fa: "ظروف", de: "Haushalt" },
+  "unit.models":         { fa: "مدل", de: "Modelle" },
+  "unit.products":       { fa: "محصول", de: "Produkte" },
+
   "nav.openMenu":        { fa: "باز کردن منو", de: "Menü öffnen" },
   "nav.closeMenu":       { fa: "بستن منو", de: "Menü schließen" },
   "nav.language":        { fa: "زبان", de: "Sprache" },
 
-  "home.kicker":         { fa: "مجموعه ما", de: "Unsere Kollektion" },
-  "home.title":          { fa: "همه مدل‌ها", de: "Alle Modelle" },
-  "home.toTables":       { fa: "کاتالوگ میز", de: "Tischkatalog" },
   "home.whatsapp":       { fa: "واتس‌اپ", de: "WhatsApp" },
-  "home.call":           { fa: "تماس", de: "Anrufen" },
-
-  "tables.title":        { fa: "میز، صندلی و اتاق خواب", de: "Tische, Stühle & Schlafzimmer" },
-  "tables.toSofas":      { fa: "کاتالوگ مبل", de: "Möbelkatalog" },
-
-  "zorof.title":         { fa: "ظروف و لوازم منزل", de: "Geschirr & Haushalt" },
-  "zorof.products":      { fa: "محصول", de: "Produkte" },
 
   "common.noResults":   { fa: "موردی یافت نشد", de: "Keine Ergebnisse gefunden" },
   "common.premium":      { fa: "مجموعه مبلمان لوکس", de: "Premium-Möbelkollektion" },
