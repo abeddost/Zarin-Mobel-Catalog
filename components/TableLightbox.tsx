@@ -5,11 +5,21 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import ZoomableSwipeArea from "@/components/ZoomableSwipeArea";
-import { Table } from "@/data/tables";
 import { useLang, useVariantLabel } from "@/lib/i18n";
 
+/** What the lightbox needs; a Table fits, and so does a Zorof product. */
+export interface LightboxItem {
+  id: string;
+  displayName: string;
+  series: string;
+  variant: string;
+  images: string[];
+  /** Optional extra lines, e.g. sizes ("36 / 30 / 26 cm"). */
+  details?: string[];
+}
+
 interface TableLightboxProps {
-  table: Table | null;
+  table: LightboxItem | null;
   onClose: () => void;
 }
 
@@ -217,6 +227,20 @@ export default function TableLightbox({ table, onClose }: TableLightboxProps) {
                 <p className="text-white/30 text-xs tracking-wide mt-1">
                   {photos(images.length)}
                 </p>
+                {table.details && table.details.length > 0 && (
+                  <div className="mt-4">
+                    <p className="text-gold/80 text-[10px] tracking-[0.3em] uppercase mb-1.5">
+                      {t("lightbox.sizes")}
+                    </p>
+                    <ul className="space-y-1">
+                      {table.details.map((d) => (
+                        <li key={d} dir="ltr" className="text-white/70 text-sm text-start">
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               {/* Thumbnails — horizontal filmstrip on mobile, grid on desktop */}

@@ -13,6 +13,7 @@ const dict = {
   "nav.about":           { fa: "درباره ما", de: "Über uns" },
   "nav.contact":         { fa: "تماس", de: "Kontakt" },
   "nav.tables":          { fa: "میز و اتاق خواب", de: "Tische" },
+  "nav.zorof":           { fa: "ظروف", de: "Haushalt" },
   "nav.openMenu":        { fa: "باز کردن منو", de: "Menü öffnen" },
   "nav.closeMenu":       { fa: "بستن منو", de: "Menü schließen" },
   "nav.language":        { fa: "زبان", de: "Sprache" },
@@ -26,7 +27,10 @@ const dict = {
   "tables.title":        { fa: "میز، صندلی و اتاق خواب", de: "Tische, Stühle & Schlafzimmer" },
   "tables.toSofas":      { fa: "کاتالوگ مبل", de: "Möbelkatalog" },
 
-  "common.noResults":    { fa: "موردی یافت نشد", de: "Keine Ergebnisse gefunden" },
+  "zorof.title":         { fa: "ظروف و لوازم منزل", de: "Geschirr & Haushalt" },
+  "zorof.products":      { fa: "محصول", de: "Produkte" },
+
+  "common.noResults":   { fa: "موردی یافت نشد", de: "Keine Ergebnisse gefunden" },
   "common.premium":      { fa: "مجموعه مبلمان لوکس", de: "Premium-Möbelkollektion" },
   "common.address":      { fa: "آدرس", de: "Adresse" },
   "common.contact":      { fa: "تماس", de: "Kontakt" },
@@ -35,7 +39,8 @@ const dict = {
   "lightbox.close":      { fa: "بستن", de: "Schließen" },
   "lightbox.prev":       { fa: "تصویر قبلی", de: "Vorheriges Bild" },
   "lightbox.next":       { fa: "تصویر بعدی", de: "Nächstes Bild" },
-  "lightbox.swipe":      { fa: "← بکشید →", de: "← wischen →" },
+  "lightbox.sizes":      { fa: "اندازه‌ها", de: "Größen" },
+  "lightbox.swipe":     { fa: "← بکشید →", de: "← wischen →" },
 
   "sofa.sofa":           { fa: "کاناپه", de: "Sofa" },
   "sofa.corner":         { fa: "مبل ال", de: "Ecksofa" },

@@ -62,6 +62,12 @@ export default function Navbar() {
             >
               {t("nav.tables")}
             </a>
+            <a
+              href="/zorof"
+              className="text-gold text-xs tracking-[0.2em] uppercase transition-all duration-300 bg-gold/15 border border-gold hover:bg-gold/25 px-3 py-1.5"
+            >
+              {t("nav.zorof")}
+            </a>
           </nav>
 
           <LanguageSwitch />
@@ -130,6 +136,13 @@ export default function Navbar() {
                   className="py-3 text-gold text-xs tracking-[0.25em] uppercase transition-colors duration-300 border-b border-gold/20 font-medium"
                 >
                   {t("nav.tables")}
+                </a>
+                <a
+                  href="/zorof"
+                  onClick={() => setDrawerOpen(false)}
+                  className="py-3 text-gold text-xs tracking-[0.25em] uppercase transition-colors duration-300 border-b border-gold/20 font-medium"
+                >
+                  {t("nav.zorof")}
                 </a>
               </nav>
 
