@@ -2,6 +2,7 @@
 
 import { Phone, Mail, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import DesignerCredit from "@/components/DesignerCredit";
 
 export default function Footer() {
   const { t } = useLang();
@@ -66,6 +67,9 @@ export default function Footer() {
         <p className="text-white/10 text-xs tracking-wide">
           Industriestraße 17 · 65474 Bischofsheim
         </p>
+        <div className="text-white/40">
+          <DesignerCredit site="zarin-moebel-catalog" />
+        </div>
       </div>
     </footer>
   );
