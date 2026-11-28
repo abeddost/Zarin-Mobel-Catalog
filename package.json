@@ -9,7 +9,8 @@
     "lint": "eslint",
     "optimize:images": "node scripts/optimize-images.mjs",
     "optimize:tables": "node scripts/optimize-tables.mjs",
-    "optimize:zorof": "node scripts/optimize-zorof.mjs"
+    "optimize:zorof": "node scripts/optimize-zorof.mjs",
+    "thumbs": "node scripts/make-thumbs.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
