@@ -52,6 +52,7 @@ const dict = {
   "type.COFFEE_TABLE":   { fa: "میز جلومبلی", de: "Couchtische" },
   "type.TV_TABLE":       { fa: "میز تلویزیون", de: "TV-Tische" },
   "type.BED":            { fa: "تخت خواب", de: "Betten" },
+  "type.MATTRESS":       { fa: "تشک", de: "Matratzen" },
   "type.WARDROBE":       { fa: "کمد لباس", de: "Kleiderschränke" },
   "type.MAKEUP_TABLE":   { fa: "میز آرایش", de: "Schminktische" },
 } satisfies Record<string, Record<Lang, string>>;
